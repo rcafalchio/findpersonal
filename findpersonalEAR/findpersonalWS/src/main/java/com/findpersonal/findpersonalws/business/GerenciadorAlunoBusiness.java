@@ -43,7 +43,7 @@ public class GerenciadorAlunoBusiness {
 	 * @throws BusinessException
 	 * @throws ExpectedApplicationException
 	 */
-	public void cadastrarAluno(final CadastroAlunoRest cadastroAlunoRest)
+	public Integer cadastrarAluno(final CadastroAlunoRest cadastroAlunoRest)
 			throws BusinessException, ExpectedApplicationException {
 		// Converte para entity
 		final Aluno aluno = ConverterUtils.convertToAluno(cadastroAlunoRest);
@@ -58,7 +58,7 @@ public class GerenciadorAlunoBusiness {
 		// AJUSTA O RELACIONAMENTO MANY TO MANY
 		aluno.getUsuario().setAluno(aluno);
 		// Persiste o aluno em base
-		usuarioRepository.save(aluno.getUsuario());
+		return usuarioRepository.save(aluno.getUsuario()).getAluno().getCodigo();
 	}
 
 	/**

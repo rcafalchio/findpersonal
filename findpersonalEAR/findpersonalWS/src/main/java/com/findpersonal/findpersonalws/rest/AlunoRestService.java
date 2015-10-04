@@ -2,12 +2,11 @@ package com.findpersonal.findpersonalws.rest;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,12 +61,14 @@ public class AlunoRestService {
 	}
 
 	@RequestMapping(value = "/Cadastro", method = RequestMethod.POST)
-	ResponseEntity<RetornoRest> cadastrar(@Valid @RequestBody CadastroAlunoRest cadastroAlunoRest) {
+	ResponseEntity<RetornoRest> cadastrar(@Validated @RequestBody CadastroAlunoRest cadastroAlunoRest) {
 		LOGGER.info("INICIO DO SERVICO CADASTRO DE ALUNO");
 		ResponseEntity<RetornoRest> retorno = null;
 		try {
-			gerenciadorAlunoBusiness.cadastrarAluno(cadastroAlunoRest);
-			retorno = new ResponseEntity<RetornoRest>(new RetornoCadastroRest(RetornoRestEnum.SUCESSO), HttpStatus.OK);
+			Integer codigoAluno = gerenciadorAlunoBusiness.cadastrarAluno(cadastroAlunoRest);
+			RetornoCadastroRest retornoCadastroRest = new RetornoCadastroRest(RetornoRestEnum.SUCESSO);
+			retornoCadastroRest.setCodigoCadastro(codigoAluno);
+			retorno = new ResponseEntity<RetornoRest>(retornoCadastroRest, HttpStatus.OK);
 		} catch (BusinessException e) {
 			LOGGER.warn("Cadastro não concluído", e);
 			retorno = new ResponseEntity<RetornoRest>(new RetornoCadastroRest(RetornoRestEnum.ERRO_NEGOCIO,

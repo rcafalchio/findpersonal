@@ -12,12 +12,22 @@ import com.findpersonal.findpersonalutil.vo.ErroNegocio;
  */
 public class RetornoCadastroRest extends RetornoRest {
 
+	private Integer codigoCadastro;
+
 	public RetornoCadastroRest(RetornoRestEnum retornoRestEnum, List<ErroNegocio> listaErrosNegocio) {
 		super(retornoRestEnum, listaErrosNegocio);
 	}
 
 	public RetornoCadastroRest(RetornoRestEnum retornoRestEnum) {
 		super(retornoRestEnum);
+	}
+
+	public Integer getCodigoCadastro() {
+		return codigoCadastro;
+	}
+
+	public void setCodigoCadastro(Integer codigoCadastro) {
+		this.codigoCadastro = codigoCadastro;
 	}
 
 }
