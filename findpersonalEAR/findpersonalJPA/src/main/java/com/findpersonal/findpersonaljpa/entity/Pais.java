@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tb_pais")
 @NamedQuery(name = "Pais.findAll", query = "SELECT t FROM Pais t")
-public class Pais implements Serializable {
+public class Pais implements Serializable, DatabaseEntity{
 	private static final long serialVersionUID = 1L;
 
 	@Id

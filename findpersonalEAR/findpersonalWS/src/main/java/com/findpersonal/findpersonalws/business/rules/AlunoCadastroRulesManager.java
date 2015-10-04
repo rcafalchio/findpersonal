@@ -1,15 +1,16 @@
-package com.findpersonal.findpersonalws.business;
+package com.findpersonal.findpersonalws.business.rules;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
 
 import com.findpersonal.findpersonaljpa.entity.Aluno;
-import com.findpersonal.findpersonaljpa.repository.UsuarioRepository;
+import com.findpersonal.findpersonaljpa.entity.DatabaseEntity;
 import com.findpersonal.findpersonalutil.constant.CadastroValidationEnum;
+import com.findpersonal.findpersonalws.business.charge.AlunoDBInformation;
+import com.findpersonal.findpersonalws.business.charge.DatabaseInformation;
 import com.findpersonal.findpersonalws.exception.AlunoException;
 
 /**
@@ -18,19 +19,12 @@ import com.findpersonal.findpersonalws.exception.AlunoException;
  * @author Ricardo
  * @since 9 de ago de 2015
  */
-@Component
-public class AlunoCadastroRulesManager implements RulesManager {
+public class AlunoCadastroRulesManager extends RulesManager {
 
 	private static final Logger LOGGER = LogManager.getLogger(AlunoCadastroRulesManager.class);
 
-	private Aluno aluno;
-	private UsuarioRepository usuarioRepository;
-
-	/**
-	 * Default constructor
-	 */
-	public AlunoCadastroRulesManager() {
-	}
+	private List<CadastroValidationEnum> listaValidacoes;
+	private AlunoDBInformation alunoDBInformation;
 
 	/**
 	 * Constructor
@@ -38,18 +32,17 @@ public class AlunoCadastroRulesManager implements RulesManager {
 	 * @param aluno
 	 * @param usuarioRepository
 	 */
-	public AlunoCadastroRulesManager(Aluno aluno, UsuarioRepository usuarioRepository) {
-		this.aluno = aluno;
-		this.usuarioRepository = usuarioRepository;
+	public AlunoCadastroRulesManager() {
+		listaValidacoes = new ArrayList<CadastroValidationEnum>();
 	}
 
 	@Override
-	public void executarRegras() throws AlunoException {
-		List<CadastroValidationEnum> listaValidacoes = new ArrayList<CadastroValidationEnum>();
+	public void executarRegras(DatabaseInformation databaseInformation, DatabaseEntity entity) throws AlunoException {
+		this.alunoDBInformation = (AlunoDBInformation) databaseInformation;
 		// VALIDA O PREENCHIMENTO DOS CAMPOS PRINCIPAIS
-		this.validarCadastro(aluno, listaValidacoes);
+		this.validarCadastro((Aluno) entity);
 		// VALIDA SE O USUARIO JA EXISTE
-		this.validarExistenciaUsuario(aluno, listaValidacoes);
+		this.validarExistenciaUsuario((Aluno) entity);
 		// VERIFICA SE DEVE VOLTAR ALGUMA VALIDACAO
 		if (!listaValidacoes.isEmpty()) {
 			throw new AlunoException(listaValidacoes);
@@ -60,10 +53,12 @@ public class AlunoCadastroRulesManager implements RulesManager {
 	/**
 	 * Valida os dados do aluno
 	 * 
+	 * @param entity
+	 * 
 	 * @param aluno
 	 * @param listaValidacoes
 	 */
-	private void validarCadastro(final Aluno aluno, List<CadastroValidationEnum> listaValidacoes) {
+	private void validarCadastro(Aluno aluno) {
 
 		if (aluno.getCodigo() != null) {
 			LOGGER.warn("O CODIGO DO USUARIO NAO DEVE SER INFORMADO NO CADASTRO");
@@ -82,11 +77,13 @@ public class AlunoCadastroRulesManager implements RulesManager {
 	 * Valida se o usuário já existe na base de dados
 	 * 
 	 * @param aluno
+	 * 
+	 * @param aluno
 	 * @param listaValidacoes
 	 */
-	private void validarExistenciaUsuario(Aluno aluno, List<CadastroValidationEnum> listaValidacoes) {
+	private void validarExistenciaUsuario(Aluno aluno) {
 		if (aluno.getUsuario().getLogin() != null && !aluno.getUsuario().getLogin().isEmpty()) {
-			if (usuarioRepository.findOne(aluno.getUsuario().getLogin()) != null) {
+			if (alunoDBInformation.isLoginExistente()) {
 				LOGGER.warn("LOGIN JÁ EXISTENTE " + aluno.getUsuario().getLogin());
 				listaValidacoes.add(CadastroValidationEnum.LOGIN_JA_EXISTE);
 			}

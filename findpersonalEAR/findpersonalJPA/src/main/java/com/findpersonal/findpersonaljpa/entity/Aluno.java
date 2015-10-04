@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "TB_ALUNO")
-public class Aluno implements Serializable{
+public class Aluno implements Serializable, DatabaseEntity{
 
 	/**
 	 * 

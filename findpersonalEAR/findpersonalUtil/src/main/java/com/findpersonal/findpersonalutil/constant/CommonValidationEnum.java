@@ -1,18 +1,17 @@
 package com.findpersonal.findpersonalutil.constant;
 
 /**
- * Enum que contem os códigos e properties das mensagens de validação de
- * cadastro
+ * Enum que contem os códigos e properties das mensagens de validação
  * 
  * @author Ricardo
  * @since 9 de ago de 2015
  */
-public enum AlunoValidationEnum {
+public enum CommonValidationEnum {
 
-	CAMPOS_NAO_PREENCHIDOS(1, "cadastro.campos.nao.preenchidos"), CODIGO_INFORMADO_INCORRETAMENTE(2,
-			"codigo.informado.incorretamente"), LOGIN_JA_EXISTE(3, "cadastro.login.ja.existe");
+	VERSAO_APLICATIVO_NAO_RECONHECIDA(500, "versao.aplicativo.nao.conhecida"), SERVICO_NAO_RECONHECIDO(501,
+			"servico.nao.conhecido"), ERRO_NOS_PARAMETROS_ENVIO(501, "erro.parametros.envio");
 
-	private AlunoValidationEnum(Integer codigo, String propertiesMensage) {
+	private CommonValidationEnum(Integer codigo, String propertiesMensage) {
 		this.codigo = codigo;
 		this.propertiesMensage = propertiesMensage;
 	}

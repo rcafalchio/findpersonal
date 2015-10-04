@@ -1,5 +1,7 @@
 package com.findpersonal.findpersonaljpa.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +13,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "TB_USUARIO")
-public class Usuario {
+public class Usuario implements Serializable, DatabaseEntity {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public Usuario() {
 	}
@@ -25,7 +32,7 @@ public class Usuario {
 		this.ativo = ativo;
 		this.loginFacebook = loginFacebook;
 	}
-	
+
 	public Usuario(Personal personal, String login, String senha, String email, Boolean ativo, Boolean loginFacebook) {
 		super();
 		this.personal = personal;

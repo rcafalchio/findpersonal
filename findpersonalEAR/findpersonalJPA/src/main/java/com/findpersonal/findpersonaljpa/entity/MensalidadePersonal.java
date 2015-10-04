@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "TB_MENSALIDADE_PERSONAL")
 @NamedQuery(name = "MensalidadePersonal.findAll", query = "SELECT t FROM MensalidadePersonal t")
-public class MensalidadePersonal implements Serializable {
+public class MensalidadePersonal implements Serializable, DatabaseEntity{
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId

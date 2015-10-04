@@ -43,11 +43,11 @@ public class PersonalRestService {
 	}
 
 	@RequestMapping(value = "/Cadastro", method = RequestMethod.POST)
-	RetornoCadastroRest cadastrar(@RequestBody Personal personal) {
+	RetornoCadastroRest cadastrar(@RequestBody CadastroPersonalRest cadastroPersonalRest) {
 		LOGGER.info("INICIO DO SERVICO CADASTRO DE PERSONAL");
 		RetornoCadastroRest retorno = null;
 		try {
-			gerenciadorPersonalBusiness.cadastrarPersonal(personal);
+			gerenciadorPersonalBusiness.cadastrarPersonal(cadastroPersonalRest);
 			retorno = new RetornoCadastroRest(RetornoRestEnum.SUCESSO);
 		} catch (BusinessException e) {
 			LOGGER.warn("Cadastro não concluído", e);

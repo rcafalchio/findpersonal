@@ -24,7 +24,7 @@ public class RetornoRest {
 
 	public enum RetornoRestEnum {
 
-		SUCESSO(0), SISTEMA_INDISPONIVEL(1), ERRO_NEGOCIO(2);
+		SUCESSO(0), SISTEMA_INDISPONIVEL(-1), ERRO_NEGOCIO(-2);
 
 		private int codigoRetorno;
 
@@ -45,7 +45,7 @@ public class RetornoRest {
 	/**
 	 * @return the listaErros
 	 */
-	public List<ErroNegocio> getListaErros() {
+	public List<ErroNegocio> getListaErrosNegocio() {
 		if (listaErrosNegocio == null) {
 			listaErrosNegocio = new ArrayList<ErroNegocio>();
 		}

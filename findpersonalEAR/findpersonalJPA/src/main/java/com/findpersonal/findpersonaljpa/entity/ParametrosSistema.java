@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tb_parametros_sistema")
 @NamedQuery(name = "ParametrosSistema.findAll", query = "SELECT t FROM ParametrosSistema t")
-public class ParametrosSistema implements Serializable {
+public class ParametrosSistema implements Serializable, DatabaseEntity{
 	private static final long serialVersionUID = 1L;
 
 	@Id

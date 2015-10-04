@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tb_estado")
 @NamedQuery(name = "Estado.findAll", query = "SELECT t FROM Estado t")
-public class Estado implements Serializable {
+public class Estado implements Serializable, DatabaseEntity{
 	
 	private static final long serialVersionUID = 1L;
 

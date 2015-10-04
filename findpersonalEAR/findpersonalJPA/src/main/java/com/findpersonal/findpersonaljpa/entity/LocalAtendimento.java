@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "TB_PERSONAL_ATENDIMENTO")
 @NamedQuery(name = "LocalAtendimento.findAll", query = "SELECT t FROM LocalAtendimento t")
-public class LocalAtendimento implements Serializable {
+public class LocalAtendimento implements Serializable, DatabaseEntity{
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId

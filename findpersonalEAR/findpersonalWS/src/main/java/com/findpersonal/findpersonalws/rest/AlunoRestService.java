@@ -2,8 +2,12 @@ package com.findpersonal.findpersonalws.rest;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,19 +62,20 @@ public class AlunoRestService {
 	}
 
 	@RequestMapping(value = "/Cadastro", method = RequestMethod.POST)
-	RetornoRest cadastrar(@RequestBody Aluno aluno) {
+	ResponseEntity<RetornoRest> cadastrar(@Valid @RequestBody CadastroAlunoRest cadastroAlunoRest) {
 		LOGGER.info("INICIO DO SERVICO CADASTRO DE ALUNO");
-		RetornoRest retorno = null;
+		ResponseEntity<RetornoRest> retorno = null;
 		try {
-			gerenciadorAlunoBusiness.cadastrarAluno(aluno);
-			retorno = new RetornoCadastroRest(RetornoRestEnum.SUCESSO);
+			gerenciadorAlunoBusiness.cadastrarAluno(cadastroAlunoRest);
+			retorno = new ResponseEntity<RetornoRest>(new RetornoCadastroRest(RetornoRestEnum.SUCESSO), HttpStatus.OK);
 		} catch (BusinessException e) {
 			LOGGER.warn("Cadastro não concluído", e);
-			retorno = new RetornoCadastroRest(RetornoRestEnum.ERRO_NEGOCIO,
-					MessageUtils.getErros(e.getListaValidacoes()));
+			retorno = new ResponseEntity<RetornoRest>(new RetornoCadastroRest(RetornoRestEnum.ERRO_NEGOCIO,
+					MessageUtils.getErros(e.getListaValidacoes())), HttpStatus.OK);
 		} catch (Exception e) {
 			LOGGER.error("Houve um erro no servico CADASTRO DE ALUNO", e);
-			retorno = new RetornoCadastroRest(RetornoRestEnum.SISTEMA_INDISPONIVEL);
+			retorno = new ResponseEntity<RetornoRest>(new RetornoCadastroRest(RetornoRestEnum.SISTEMA_INDISPONIVEL),
+					HttpStatus.OK);
 		} finally {
 			LOGGER.info("FIM DO SERVICO CADASTRO DE ALUNO");
 		}

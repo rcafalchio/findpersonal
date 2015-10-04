@@ -12,8 +12,8 @@ import com.findpersonal.findpersonalutil.vo.ErroNegocio;
  */
 public class RetornoCadastroRest extends RetornoRest {
 
-	public RetornoCadastroRest(RetornoRestEnum retornoRestEnum, List<ErroNegocio> listaErros) {
-		super(retornoRestEnum, listaErros);
+	public RetornoCadastroRest(RetornoRestEnum retornoRestEnum, List<ErroNegocio> listaErrosNegocio) {
+		super(retornoRestEnum, listaErrosNegocio);
 	}
 
 	public RetornoCadastroRest(RetornoRestEnum retornoRestEnum) {

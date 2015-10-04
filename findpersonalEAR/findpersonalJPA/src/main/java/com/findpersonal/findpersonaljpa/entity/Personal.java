@@ -28,7 +28,7 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 @Table(name = "TB_PERSONAL")
 @NamedQuery(name = "Personal.findAll", query = "SELECT t FROM Personal t")
-public class Personal implements Serializable {
+public class Personal implements Serializable, DatabaseEntity{
 	private static final long serialVersionUID = 1L;
 
 	@Id

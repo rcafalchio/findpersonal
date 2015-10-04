@@ -1,8 +1,9 @@
 package com.findpersonal.findpersonalws.exception;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings(value = { "all" })
+@SuppressWarnings(value = {"all"})
 public class BusinessException extends FindPernsonalApplicationException {
 
 	private List listaValidacoes;
@@ -21,7 +22,14 @@ public class BusinessException extends FindPernsonalApplicationException {
 	 * @return List - Lista de validações
 	 */
 	public List getListaValidacoes() {
+		if (this.listaValidacoes == null) {
+			listaValidacoes = new ArrayList();
+		}
 		return listaValidacoes;
+	}
+
+	public BusinessException(Object object) {
+		getListaValidacoes().add(object);
 	}
 
 }

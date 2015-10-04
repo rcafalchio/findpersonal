@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "tb_mensalidade_academia")
 @NamedQuery(name = "MensalidadeAcademia.findAll", query = "SELECT t FROM MensalidadeAcademia t")
-public class MensalidadeAcademia implements Serializable {
+public class MensalidadeAcademia implements Serializable, DatabaseEntity{
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
