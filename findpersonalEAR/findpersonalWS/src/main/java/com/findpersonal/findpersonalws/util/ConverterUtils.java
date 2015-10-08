@@ -34,7 +34,6 @@ public final class ConverterUtils {
 		aluno.setSiglaSexo(cadastroAlunoRest.getSiglaSexo());
 		aluno.setDataNascimento(cadastroAlunoRest.getDataNascimento());
 		aluno.setUsuario(new Usuario());
-		aluno.getUsuario().setLogin(cadastroAlunoRest.getLogin());
 		aluno.getUsuario().setEmail(cadastroAlunoRest.getEmail());
 		aluno.getUsuario().setSenha(cadastroAlunoRest.getSenha());
 		return aluno;
@@ -53,7 +52,6 @@ public final class ConverterUtils {
 		personal.setUsuario(new Usuario());
 		personal.getUsuario().setEmail(cadastroPersonalRest.getEmail());
 		personal.getUsuario().setSenha(cadastroPersonalRest.getSenha());
-		personal.getUsuario().setLogin(cadastroPersonalRest.getLogin());
 		for (CadastroLocalAtendimentoRest atendimentoRest : cadastroPersonalRest.getListaAtendimento()) {
 			personal.getLocaisAtendimento().add(convertToLocalAtendimento(atendimentoRest));
 		}

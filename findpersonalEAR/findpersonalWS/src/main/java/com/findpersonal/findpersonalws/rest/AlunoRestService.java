@@ -82,5 +82,13 @@ public class AlunoRestService {
 		}
 		return retorno;
 	}
+	
+	@RequestMapping(value = "/Cadastro/Atendimento", method = RequestMethod.POST)
+	ResponseEntity<RetornoRest> cadastrarAtendimento(@Validated @RequestBody CadastroAtendimenetoRest cadastroAtendimenetoRest) {
+		LOGGER.info("INICIO DO SERVICO CADASTRO DE ATENDIMENTO DO ALUNO");
+		ResponseEntity<RetornoRest> retorno = null;
+		return retorno;
+	}
+
 
 }

@@ -29,13 +29,13 @@ public class AlunoRepositoryTest {
 	@Test
 	public void cadastrarUsuario() throws Exception {
 		LOGGER.info("TESTE INICIO RICARDO");
-		Aluno aluno = new Aluno();
-		aluno.setDataNascimento(new Date());
-		aluno.setNome("TESTE JUNIT");
-		aluno.setSiglaSexo("M");
-		aluno.setUsuario(new Usuario(aluno, "ricardo", "123", "ricardo@gmail.com", true, false));
-		Usuario user = usuarioRepository.save(aluno.getUsuario());
-		usuarioRepository.delete(user);
+//		Aluno aluno = new Aluno();
+//		aluno.setDataNascimento(new Date());
+//		aluno.setNome("TESTE JUNIT");
+//		aluno.setSiglaSexo("M");
+//		aluno.setUsuario(new Usuario(aluno, "ricardo", "123", "ricardo@gmail.com", true, false));
+//		Usuario user = usuarioRepository.save(aluno.getUsuario());
+//		usuarioRepository.delete(user);
 		LOGGER.info("TESTE FIM RICARDO");
 	}
 }

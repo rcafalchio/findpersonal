@@ -3,12 +3,16 @@ package com.findpersonal.findpersonalws.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.findpersonal.findpersonalutil.vo.ErroNegocio;
 
 public class RetornoRest {
 
+	@JsonProperty("CR")
 	private int codigoRetorno = 0;
+	@JsonProperty("DR")
 	private String descricaoRetorno;
+	@JsonProperty("LEN")
 	private List<ErroNegocio> listaErrosNegocio;
 
 	public RetornoRest(RetornoRestEnum retornoRestEnum) {

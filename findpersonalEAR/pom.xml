@@ -19,7 +19,8 @@
 	</modules>
 
 	<properties>
-		<tomcat.version>8.0.23</tomcat.version>
+<!-- 		<tomcat.version>8.0.23</tomcat.version> -->
+			<tomcat.version>7.0.63</tomcat.version>
 	</properties>
 
 	<dependencies>

@@ -5,30 +5,30 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CadastroAlunoRest extends EnvioRest {
 
-	@NotNull(message="O parametro não pode ser nulo")
-	private String login;
-	@NotNull(message="O parametro não pode ser nulo")
+	@JsonProperty("PW")
+	@NotNull(message = "O parametro não pode ser nulo")
 	private String senha;
-	@NotNull(message="O parametro não pode ser nulo")
+	@JsonProperty("MAIL")
+	@NotNull(message = "O parametro não pode ser nulo")
 	private String email;
-	@NotNull(message="O parametro não pode ser nulo")
+	@JsonProperty("NM")
+	@NotNull(message = "O parametro não pode ser nulo")
 	private String nome;
-	@NotNull(message="O parametro não pode ser nulo")
+	@JsonProperty("DTN")
+	@NotNull(message = "O parametro não pode ser nulo")
 	private Date dataNascimento;
+	@JsonProperty("SX")
 	@NotNull
-	@Pattern(regexp="[MmFf]")
+	@Pattern(regexp = "[MmFf]")
 	private String siglaSexo;
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
+	@JsonProperty("CFB")
+	private Integer cdFacebook;
+	@JsonProperty("LFB")
+	private String linkPageFacebook;
 
 	public String getSenha() {
 		return senha;
@@ -70,4 +70,19 @@ public class CadastroAlunoRest extends EnvioRest {
 		this.siglaSexo = siglaSexo;
 	}
 
+	public Integer getCdFacebook() {
+		return cdFacebook;
+	}
+
+	public void setCdFacebook(Integer cdFacebook) {
+		this.cdFacebook = cdFacebook;
+	}
+
+	public String getLinkPageFacebook() {
+		return linkPageFacebook;
+	}
+
+	public void setLinkPageFacebook(String linkPageFacebook) {
+		this.linkPageFacebook = linkPageFacebook;
+	}
 }

@@ -47,6 +47,8 @@ public class GerenciadorAlunoBusiness {
 			throws BusinessException, ExpectedApplicationException {
 		// Converte para entity
 		final Aluno aluno = ConverterUtils.convertToAluno(cadastroAlunoRest);
+		aluno.getUsuario().setAtivo(Boolean.TRUE);
+		aluno.getUsuario().setLoginFacebook(Boolean.FALSE);
 		// Realiza a carga das informações do serviço de Aluno;
 		final ChargeManager chargeManager = ChargeManagerFactory.getInstance()
 				.obterChargeManager(cadastroAlunoRest.getApplicationVersion(), RestServicesEnum.CADASTRO_ALUNO);

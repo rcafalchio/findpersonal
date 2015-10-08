@@ -8,14 +8,14 @@ package com.findpersonal.findpersonalws.business.charge;
  */
 public class AlunoDBInformation implements DatabaseInformation {
 
-	private Boolean loginExistente;
+	private Boolean emailExistente;
 
 	public AlunoDBInformation(AlunoDBBuilder alunoDBBuilder) {
-		this.loginExistente = alunoDBBuilder.loginExistente;
+		this.emailExistente = alunoDBBuilder.emailExistente;
 	}
 
-	public Boolean isLoginExistente() {
-		return loginExistente;
+	public Boolean isEmailExistente() {
+		return emailExistente;
 	}
 
 	/**
@@ -25,13 +25,13 @@ public class AlunoDBInformation implements DatabaseInformation {
 	 *
 	 */
 	public static class AlunoDBBuilder {
-		private Boolean loginExistente;
+		private Boolean emailExistente;
 
 		public AlunoDBBuilder() {
 		}
 
-		public AlunoDBBuilder loginExistente(Boolean loginExistente) {
-			this.loginExistente = loginExistente;
+		public AlunoDBBuilder emailExistente(Boolean emailExistente) {
+			this.emailExistente = emailExistente;
 			return this;
 		}
 

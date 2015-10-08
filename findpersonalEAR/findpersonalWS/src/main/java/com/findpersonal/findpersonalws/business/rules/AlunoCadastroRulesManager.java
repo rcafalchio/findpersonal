@@ -66,7 +66,7 @@ public class AlunoCadastroRulesManager extends RulesManager {
 		}
 
 		if (aluno == null || aluno.getDataNascimento() == null || aluno.getNome() == null
-				|| aluno.getSiglaSexo() == null || aluno.getUsuario() == null || aluno.getUsuario().getLogin() == null
+				|| aluno.getSiglaSexo() == null || aluno.getUsuario() == null || aluno.getUsuario().getEmail() == null
 				|| aluno.getUsuario().getSenha() == null || aluno.getUsuario().getEmail() == null) {
 			LOGGER.warn("CAMPOS PRINCIPAIS DO CADASTRO DO ALUNO NAO PREENCHIDOS");
 			listaValidacoes.add(CadastroValidationEnum.CAMPOS_NAO_PREENCHIDOS);
@@ -82,9 +82,9 @@ public class AlunoCadastroRulesManager extends RulesManager {
 	 * @param listaValidacoes
 	 */
 	private void validarExistenciaUsuario(Aluno aluno) {
-		if (aluno.getUsuario().getLogin() != null && !aluno.getUsuario().getLogin().isEmpty()) {
-			if (alunoDBInformation.isLoginExistente()) {
-				LOGGER.warn("LOGIN JÁ EXISTENTE " + aluno.getUsuario().getLogin());
+		if (aluno.getUsuario().getEmail() != null && !aluno.getUsuario().getEmail().isEmpty()) {
+			if (alunoDBInformation.isEmailExistente()) {
+				LOGGER.warn("email JÁ EXISTENTE " + aluno.getUsuario().getEmail());
 				listaValidacoes.add(CadastroValidationEnum.LOGIN_JA_EXISTE);
 			}
 		}

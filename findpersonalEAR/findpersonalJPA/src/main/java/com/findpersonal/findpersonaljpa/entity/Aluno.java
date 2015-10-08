@@ -23,7 +23,7 @@ public class Aluno implements Serializable, DatabaseEntity{
 
 
 	@OneToOne
-	@JoinColumn(name = "TB_USUARIO_TX_LOGIN")
+	@JoinColumn(name = "TB_USUARIO_CD_USUARIO")
 	private Usuario usuario;
 	
 	@Id

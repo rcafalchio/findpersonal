@@ -2,6 +2,7 @@ package com.findpersonal.findpersonalws.rest;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.findpersonal.findpersonalutil.vo.ErroNegocio;
 
 /**
@@ -12,6 +13,7 @@ import com.findpersonal.findpersonalutil.vo.ErroNegocio;
  */
 public class RetornoCadastroRest extends RetornoRest {
 
+	@JsonProperty("CC")
 	private Integer codigoCadastro;
 
 	public RetornoCadastroRest(RetornoRestEnum retornoRestEnum, List<ErroNegocio> listaErrosNegocio) {

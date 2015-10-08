@@ -32,15 +32,15 @@ public class PersonalRepositoryTest {
 
 	@Test
 	public void cadastrarUsuario() throws Exception {
-		List<LocalAtendimento> locaisAtendimento = new ArrayList<LocalAtendimento>();
-		LocalAtendimento localAtendimento = new LocalAtendimento();
-		LocalAtendimentoPK localAtendimentoPK = new LocalAtendimentoPK(null,1,2,1,1);
-		localAtendimento.setId(localAtendimentoPK);
-		LOGGER.info("TESTE JUNIT CADASTRO PERSONAL");
-		final Personal personal = new Personal("Personal Teste", new Date());
-		personal.setUsuario(new Usuario(personal, "personal", "123", "ricardo@gmail.com", true, false));
+//		List<LocalAtendimento> locaisAtendimento = new ArrayList<LocalAtendimento>();
+//		LocalAtendimento localAtendimento = new LocalAtendimento();
+//		LocalAtendimentoPK localAtendimentoPK = new LocalAtendimentoPK(null,1,2,1,1);
+//		localAtendimento.setId(localAtendimentoPK);
+//		LOGGER.info("TESTE JUNIT CADASTRO PERSONAL");
+//		final Personal personal = new Personal("Personal Teste", new Date());
+//		personal.setUsuario(new Usuario(personal, "personal", "123", "ricardo@gmail.com", true, false));
 //		personal.setLocaisAtendimento(locaisAtendimento);
-		usuarioRepository.save(personal.getUsuario());
+//		usuarioRepository.save(personal.getUsuario());
 //		usuarioRepository.delete(user);
 		LOGGER.info("TESTE JUNIT CADASTRO PERSONAL");
 	}

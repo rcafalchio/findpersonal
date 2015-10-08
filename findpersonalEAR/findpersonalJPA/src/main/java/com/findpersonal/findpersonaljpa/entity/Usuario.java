@@ -5,7 +5,11 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -13,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "TB_USUARIO")
+@NamedQueries(value = {@NamedQuery(name = "findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email")})
 public class Usuario implements Serializable, DatabaseEntity {
 
 	/**
@@ -23,24 +28,28 @@ public class Usuario implements Serializable, DatabaseEntity {
 	public Usuario() {
 	}
 
-	public Usuario(Aluno aluno, String login, String senha, String email, Boolean ativo, Boolean loginFacebook) {
+	public Usuario(Aluno aluno, String login, String senha, String email, Boolean ativo, Boolean loginFacebook,
+			String linkPageFacebook, Integer cdFacebook) {
 		super();
 		this.aluno = aluno;
-		this.login = login;
 		this.senha = senha;
 		this.email = email;
 		this.ativo = ativo;
 		this.loginFacebook = loginFacebook;
+		this.linkPageFacebook = linkPageFacebook;
+		this.cdFacebook = cdFacebook;
 	}
 
-	public Usuario(Personal personal, String login, String senha, String email, Boolean ativo, Boolean loginFacebook) {
+	public Usuario(Personal personal, String login, String senha, String email, Boolean ativo, Boolean loginFacebook,
+			String linkPageFacebook, Integer cdFacebook) {
 		super();
 		this.personal = personal;
-		this.login = login;
 		this.senha = senha;
 		this.email = email;
 		this.ativo = ativo;
 		this.loginFacebook = loginFacebook;
+		this.linkPageFacebook = linkPageFacebook;
+		this.cdFacebook = cdFacebook;
 	}
 
 	@JsonIgnore
@@ -52,8 +61,9 @@ public class Usuario implements Serializable, DatabaseEntity {
 	private Personal personal;
 
 	@Id
-	@Column(name = "TX_LOGIN")
-	private String login;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "CD_USUARIO")
+	private Integer codigo;
 	@Column(name = "TX_SENHA")
 	private String senha;
 	@Column(name = "TX_EMAIL")
@@ -62,6 +72,10 @@ public class Usuario implements Serializable, DatabaseEntity {
 	private Boolean ativo;
 	@Column(name = "BO_FACEBOOK")
 	private Boolean loginFacebook;
+	@Column(name = "CD_FACEBOOK")
+	private Integer cdFacebook;
+	@Column(name = "TX_LINK_PAGE_FACE")
+	private String linkPageFacebook;
 
 	/**
 	 * @return the aluno
@@ -84,21 +98,6 @@ public class Usuario implements Serializable, DatabaseEntity {
 
 	public void setPersonal(Personal personal) {
 		this.personal = personal;
-	}
-
-	/**
-	 * @return the login
-	 */
-	public String getLogin() {
-		return login;
-	}
-
-	/**
-	 * @param login
-	 *            the login to set
-	 */
-	public void setLogin(String login) {
-		this.login = login;
 	}
 
 	/**
@@ -159,6 +158,30 @@ public class Usuario implements Serializable, DatabaseEntity {
 	 */
 	public void setLoginFacebook(Boolean loginFacebook) {
 		this.loginFacebook = loginFacebook;
+	}
+
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+
+	public Integer getCdFacebook() {
+		return cdFacebook;
+	}
+
+	public void setCdFacebook(Integer cdFacebook) {
+		this.cdFacebook = cdFacebook;
+	}
+
+	public String getLinkPageFacebook() {
+		return linkPageFacebook;
+	}
+
+	public void setLinkPageFacebook(String linkPageFacebook) {
+		this.linkPageFacebook = linkPageFacebook;
 	}
 
 }

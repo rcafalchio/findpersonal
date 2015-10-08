@@ -13,15 +13,15 @@ public class AlunoCharger extends ChargeManager {
 
 	@Override
 	public DatabaseInformation obterCarga(DatabaseEntity entity, DatabaseInformation databaseInformation) {
-		boolean loginExistente = false;
+		boolean emailExistente = false;
 		final Aluno aluno = (Aluno) entity;
 		
-		if (aluno.getUsuario().getLogin() != null && !aluno.getUsuario().getLogin().isEmpty()) {
-			if (usuarioRepository.findOne(aluno.getUsuario().getLogin()) != null) {
-				loginExistente = true;
+		if (aluno.getUsuario().getEmail() != null && !aluno.getUsuario().getEmail().isEmpty()) {
+			if (usuarioRepository.findByEmail(aluno.getUsuario().getEmail()) != null) {
+				emailExistente = true;
 			}
 		}
-		return new AlunoDBInformation.AlunoDBBuilder().loginExistente(loginExistente).build();
+		return new AlunoDBInformation.AlunoDBBuilder().emailExistente(emailExistente).build();
 	}
 
 }

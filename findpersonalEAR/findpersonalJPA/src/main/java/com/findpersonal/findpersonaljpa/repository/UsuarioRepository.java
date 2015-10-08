@@ -6,4 +6,6 @@ import com.findpersonal.findpersonaljpa.entity.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, String> {
 
+	Usuario findByEmail(String email);
+
 }

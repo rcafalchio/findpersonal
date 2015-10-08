@@ -14,12 +14,6 @@
 	<name>findpersonalWS Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>5.1.3.Final</version>
-		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>

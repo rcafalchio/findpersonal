@@ -56,7 +56,7 @@ public class PersonalCadastroRulesManager extends RulesManager {
 
 		if (personal == null || personal.getDataNascimento() == null
 				|| personal.getNome() == null && personal.getUsuario() == null
-				|| personal.getUsuario().getLogin() == null) {
+				|| personal.getUsuario().getEmail() == null) {
 			LOGGER.warn("CAMPOS PRINCIPAIS DO CADASTRO DO PERSONAL NAO PREENCHIDOS");
 			listaValidacoes.add(CadastroValidationEnum.CAMPOS_NAO_PREENCHIDOS);
 		}
@@ -69,9 +69,9 @@ public class PersonalCadastroRulesManager extends RulesManager {
 	 * @param listaValidacoes
 	 */
 	private void validarExistenciaUsuario(Personal personal, List<CadastroValidationEnum> listaValidacoes) {
-		if (personal.getUsuario().getLogin() != null && !personal.getUsuario().getLogin().isEmpty()) {
-			if (usuarioRepository.findOne(personal.getUsuario().getLogin()) != null) {
-				LOGGER.warn("LOGIN JÁ EXISTENTE " + personal.getUsuario().getLogin());
+		if (personal.getUsuario().getEmail() != null && !personal.getUsuario().getEmail().isEmpty()) {
+			if (usuarioRepository.findOne(personal.getUsuario().getEmail()) != null) {
+				LOGGER.warn("LOGIN JÁ EXISTENTE " + personal.getUsuario().getEmail());
 				listaValidacoes.add(CadastroValidationEnum.LOGIN_JA_EXISTE);
 			}
 		}
