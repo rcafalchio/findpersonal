@@ -39,8 +39,6 @@ public class AlunoCadastroRulesManager extends RulesManager {
 	@Override
 	public void executarRegras(DatabaseInformation databaseInformation, DatabaseEntity entity) throws AlunoException {
 		this.alunoDBInformation = (AlunoDBInformation) databaseInformation;
-		// VALIDA O PREENCHIMENTO DOS CAMPOS PRINCIPAIS
-		this.validarCadastro((Aluno) entity);
 		// VALIDA SE O USUARIO JA EXISTE
 		this.validarExistenciaUsuario((Aluno) entity);
 		// VERIFICA SE DEVE VOLTAR ALGUMA VALIDACAO
@@ -48,29 +46,6 @@ public class AlunoCadastroRulesManager extends RulesManager {
 			throw new AlunoException(listaValidacoes);
 		}
 
-	}
-
-	/**
-	 * Valida os dados do aluno
-	 * 
-	 * @param entity
-	 * 
-	 * @param aluno
-	 * @param listaValidacoes
-	 */
-	private void validarCadastro(Aluno aluno) {
-
-		if (aluno.getCodigo() != null) {
-			LOGGER.warn("O CODIGO DO USUARIO NAO DEVE SER INFORMADO NO CADASTRO");
-			listaValidacoes.add(CadastroValidationEnum.CODIGO_INFORMADO_INCORRETAMENTE);
-		}
-
-		if (aluno == null || aluno.getDataNascimento() == null || aluno.getNome() == null
-				|| aluno.getSiglaSexo() == null || aluno.getUsuario() == null || aluno.getUsuario().getEmail() == null
-				|| aluno.getUsuario().getSenha() == null || aluno.getUsuario().getEmail() == null) {
-			LOGGER.warn("CAMPOS PRINCIPAIS DO CADASTRO DO ALUNO NAO PREENCHIDOS");
-			listaValidacoes.add(CadastroValidationEnum.CAMPOS_NAO_PREENCHIDOS);
-		}
 	}
 
 	/**

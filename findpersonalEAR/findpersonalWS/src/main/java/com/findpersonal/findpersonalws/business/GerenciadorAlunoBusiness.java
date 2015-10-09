@@ -17,6 +17,7 @@ import com.findpersonal.findpersonalws.business.rules.RulesManagerFactory;
 import com.findpersonal.findpersonalws.exception.BusinessException;
 import com.findpersonal.findpersonalws.exception.ExpectedApplicationException;
 import com.findpersonal.findpersonalws.rest.CadastroAlunoRest;
+import com.findpersonal.findpersonalws.rest.EnvioAtulizacaoAlunoRest;
 import com.findpersonal.findpersonalws.util.ConverterUtils;
 
 /**
@@ -48,7 +49,6 @@ public class GerenciadorAlunoBusiness {
 		// Converte para entity
 		final Aluno aluno = ConverterUtils.convertToAluno(cadastroAlunoRest);
 		aluno.getUsuario().setAtivo(Boolean.TRUE);
-		aluno.getUsuario().setLoginFacebook(Boolean.FALSE);
 		// Realiza a carga das informações do serviço de Aluno;
 		final ChargeManager chargeManager = ChargeManagerFactory.getInstance()
 				.obterChargeManager(cadastroAlunoRest.getApplicationVersion(), RestServicesEnum.CADASTRO_ALUNO);
@@ -81,6 +81,25 @@ public class GerenciadorAlunoBusiness {
 	 */
 	public List<Aluno> buscarAlunos() {
 		return alunoRepository.findAll();
+	}
+
+	public Integer atualizarAluno(EnvioAtulizacaoAlunoRest atulizacaoAlunoRest)
+			throws BusinessException, ExpectedApplicationException {
+		// Converte para entity
+		final Aluno aluno = ConverterUtils.convertToAluno(atulizacaoAlunoRest);
+		aluno.getUsuario().setAtivo(Boolean.TRUE);
+		// Realiza a carga das informações do serviço de Aluno;
+//		final ChargeManager chargeManager = ChargeManagerFactory.getInstance().obterChargeManager(
+//				atulizacaoAlunoRest.getApplicationVersion(), RestServicesEnum.ATUALIZAR_CADASTRO_ALUNO);
+//		final DatabaseInformation databaseInformation = chargeManager.obterCarga(aluno, null);
+		// Realiza as validações dos dados
+		// final RulesManager rulesManager = RulesManagerFactory.getInstance().obterRulesManager(
+		// atulizacaoAlunoRest.getApplicationVersion(), RestServicesEnum.ATUALIZAR_CADASTRO_ALUNO);
+		// rulesManager.executarRegras(databaseInformation, aluno);
+		// AJUSTA O RELACIONAMENTO MANY TO MANY
+		aluno.getUsuario().setAluno(aluno);
+		// Persiste o aluno em base
+		return usuarioRepository.save(aluno.getUsuario()).getAluno().getCodigo();
 	}
 
 }

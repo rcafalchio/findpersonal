@@ -1,5 +1,7 @@
 package com.findpersonal.findpersonalutil.vo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ErroNegocio {
 
 	public ErroNegocio(Integer codigo, String descricao) {
@@ -8,7 +10,9 @@ public class ErroNegocio {
 		this.descricao = descricao;
 	}
 
+	@JsonProperty(value="CDE")
 	private Integer codigo;
+	@JsonProperty(value="DSE")
 	private String descricao;
 
 	/**

@@ -60,6 +60,29 @@ public class AlunoRestService {
 		return retorno;
 	}
 
+	@RequestMapping(value = "/Cadastro/Atualizar", method = RequestMethod.POST)
+	ResponseEntity<RetornoRest> atualizar(@Validated @RequestBody EnvioAtulizacaoAlunoRest atulizacaoAlunoRest) {
+		LOGGER.info("INICIO DO SERVICO CADASTRO DE ALUNO");
+		ResponseEntity<RetornoRest> retorno = null;
+		try {
+			Integer codigoAluno = gerenciadorAlunoBusiness.atualizarAluno(atulizacaoAlunoRest);
+			RetornoCadastroRest retornoCadastroRest = new RetornoCadastroRest(RetornoRestEnum.SUCESSO);
+			retornoCadastroRest.setCodigoCadastro(codigoAluno);
+			retorno = new ResponseEntity<RetornoRest>(retornoCadastroRest, HttpStatus.OK);
+		} catch (BusinessException e) {
+			LOGGER.warn("Cadastro não concluído", e);
+			retorno = new ResponseEntity<RetornoRest>(new RetornoCadastroRest(RetornoRestEnum.ERRO_NEGOCIO,
+					MessageUtils.getErros(e.getListaValidacoes())), HttpStatus.OK);
+		} catch (Exception e) {
+			LOGGER.error("Houve um erro no servico CADASTRO DE ALUNO", e);
+			retorno = new ResponseEntity<RetornoRest>(new RetornoCadastroRest(RetornoRestEnum.SISTEMA_INDISPONIVEL),
+					HttpStatus.OK);
+		} finally {
+			LOGGER.info("FIM DO SERVICO CADASTRO DE ALUNO");
+		}
+		return retorno;
+	}
+	
 	@RequestMapping(value = "/Cadastro", method = RequestMethod.POST)
 	ResponseEntity<RetornoRest> cadastrar(@Validated @RequestBody CadastroAlunoRest cadastroAlunoRest) {
 		LOGGER.info("INICIO DO SERVICO CADASTRO DE ALUNO");

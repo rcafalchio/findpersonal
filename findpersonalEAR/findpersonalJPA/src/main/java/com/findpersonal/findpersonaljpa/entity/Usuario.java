@@ -29,27 +29,25 @@ public class Usuario implements Serializable, DatabaseEntity {
 	}
 
 	public Usuario(Aluno aluno, String login, String senha, String email, Boolean ativo, Boolean loginFacebook,
-			String linkPageFacebook, Integer cdFacebook) {
+			Integer codigoFacebook) {
 		super();
 		this.aluno = aluno;
 		this.senha = senha;
 		this.email = email;
 		this.ativo = ativo;
 		this.loginFacebook = loginFacebook;
-		this.linkPageFacebook = linkPageFacebook;
-		this.cdFacebook = cdFacebook;
+		this.codigoFacebook = codigoFacebook;
 	}
 
 	public Usuario(Personal personal, String login, String senha, String email, Boolean ativo, Boolean loginFacebook,
-			String linkPageFacebook, Integer cdFacebook) {
+			Integer codigoFacebook) {
 		super();
 		this.personal = personal;
 		this.senha = senha;
 		this.email = email;
 		this.ativo = ativo;
 		this.loginFacebook = loginFacebook;
-		this.linkPageFacebook = linkPageFacebook;
-		this.cdFacebook = cdFacebook;
+		this.codigoFacebook = codigoFacebook;
 	}
 
 	@JsonIgnore
@@ -73,9 +71,7 @@ public class Usuario implements Serializable, DatabaseEntity {
 	@Column(name = "BO_FACEBOOK")
 	private Boolean loginFacebook;
 	@Column(name = "CD_FACEBOOK")
-	private Integer cdFacebook;
-	@Column(name = "TX_LINK_PAGE_FACE")
-	private String linkPageFacebook;
+	private Integer codigoFacebook;
 
 	/**
 	 * @return the aluno
@@ -168,20 +164,12 @@ public class Usuario implements Serializable, DatabaseEntity {
 		this.codigo = codigo;
 	}
 
-	public Integer getCdFacebook() {
-		return cdFacebook;
+	public Integer getCodigoFacebook() {
+		return codigoFacebook;
 	}
 
-	public void setCdFacebook(Integer cdFacebook) {
-		this.cdFacebook = cdFacebook;
-	}
-
-	public String getLinkPageFacebook() {
-		return linkPageFacebook;
-	}
-
-	public void setLinkPageFacebook(String linkPageFacebook) {
-		this.linkPageFacebook = linkPageFacebook;
+	public void setCodigoFacebook(Integer codigoFacebook) {
+		this.codigoFacebook = codigoFacebook;
 	}
 
 }

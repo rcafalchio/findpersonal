@@ -12,6 +12,8 @@ import com.findpersonal.findpersonaljpa.entity.Zona;
 import com.findpersonal.findpersonalws.rest.CadastroAlunoRest;
 import com.findpersonal.findpersonalws.rest.CadastroLocalAtendimentoRest;
 import com.findpersonal.findpersonalws.rest.CadastroPersonalRest;
+import com.findpersonal.findpersonalws.rest.EnvioAtulizacaoAlunoRest;
+import com.findpersonal.findpersonalws.rest.EnvioRest;
 
 /**
  * Classe util responsável por converter os Objetos JSon em entidades
@@ -28,14 +30,24 @@ public final class ConverterUtils {
 	 *            - Cadastro aluno
 	 * @return Aluno
 	 */
-	public static Aluno convertToAluno(CadastroAlunoRest cadastroAlunoRest) {
+	public static Aluno convertToAluno(EnvioRest envioRest) {
+		CadastroAlunoRest cadastroAlunoRest = (CadastroAlunoRest) envioRest;
 		Aluno aluno = new Aluno();
 		aluno.setNome(cadastroAlunoRest.getNome());
-		aluno.setSiglaSexo(cadastroAlunoRest.getSiglaSexo());
-		aluno.setDataNascimento(cadastroAlunoRest.getDataNascimento());
+		if (cadastroAlunoRest instanceof EnvioAtulizacaoAlunoRest) {
+			EnvioAtulizacaoAlunoRest atulizacaoAlunoRest = (EnvioAtulizacaoAlunoRest) cadastroAlunoRest;
+			aluno.setSiglaSexo(atulizacaoAlunoRest.getSiglaSexo());
+			aluno.setDataNascimento(atulizacaoAlunoRest.getDataNascimento());
+		}
 		aluno.setUsuario(new Usuario());
 		aluno.getUsuario().setEmail(cadastroAlunoRest.getEmail());
 		aluno.getUsuario().setSenha(cadastroAlunoRest.getSenha());
+		if (cadastroAlunoRest.getCodigoFacebook() != null) {
+			aluno.getUsuario().setCodigoFacebook(cadastroAlunoRest.getCodigoFacebook());
+			aluno.getUsuario().setLoginFacebook(Boolean.TRUE);
+		}else{
+			aluno.getUsuario().setLoginFacebook(Boolean.FALSE);
+		}
 		return aluno;
 	}
 
