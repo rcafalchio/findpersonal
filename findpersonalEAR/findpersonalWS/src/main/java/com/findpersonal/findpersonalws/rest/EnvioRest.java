@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public abstract class EnvioRest {
 
-	@JsonProperty("apv")
+	@JsonProperty("APV")
 	@NotNull
 	protected double applicationVersion;
 
