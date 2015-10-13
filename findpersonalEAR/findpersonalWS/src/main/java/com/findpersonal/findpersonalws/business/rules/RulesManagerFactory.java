@@ -1,8 +1,8 @@
 package com.findpersonal.findpersonalws.business.rules;
 
 import com.findpersonal.findpersonalutil.constant.ApplicationVersionEnum;
-import com.findpersonal.findpersonalutil.constant.CommonValidationEnum;
 import com.findpersonal.findpersonalutil.constant.RestServicesEnum;
+import com.findpersonal.findpersonalutil.constant.ValidationEnum;
 import com.findpersonal.findpersonalws.exception.BusinessException;
 import com.findpersonal.findpersonalws.exception.ExpectedApplicationException;
 
@@ -25,7 +25,7 @@ public final class RulesManagerFactory {
 
 		// Verifica se a versão é conhecida
 		if (ApplicationVersionEnum.VERSION_NOT_MATCH.equals(applicationVersionEnum)) {
-			throw new BusinessException(CommonValidationEnum.VERSAO_APLICATIVO_NAO_RECONHECIDA);
+			throw new BusinessException(ValidationEnum.VERSAO_APLICATIVO_NAO_RECONHECIDA);
 		}
 
 		switch (restServicesEnum) {
@@ -33,10 +33,17 @@ public final class RulesManagerFactory {
 				rulesManager = new RulesCreator().createAlunoCadastroManager(applicationVersionEnum);
 				break;
 			case CADASTRO_PERSONAL :
+				rulesManager = new RulesCreator().createPersonalCadastroManager(applicationVersionEnum);
+				break;
 
+			case ATUALIZAR_CADASTRO_ALUNO :
+				rulesManager = new RulesCreator().createAlunoAtualizacaoManager(applicationVersionEnum);
+				break;
+			case ATUALIZAR_CADASTRO_PERSONAL :
+				rulesManager = new RulesCreator().createPersonalAtualizacaoManager(applicationVersionEnum);
 				break;
 			default :
-				throw new BusinessException(CommonValidationEnum.VERSAO_APLICATIVO_NAO_RECONHECIDA);
+				throw new BusinessException(ValidationEnum.VERSAO_APLICATIVO_NAO_RECONHECIDA);
 		}
 		return rulesManager;
 	}

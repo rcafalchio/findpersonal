@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.findpersonal.findpersonaljpa.entity.Aluno;
+import com.findpersonal.findpersonaljpa.entity.Usuario;
 import com.findpersonal.findpersonaljpa.repository.AlunoRepository;
 import com.findpersonal.findpersonaljpa.repository.UsuarioRepository;
 import com.findpersonal.findpersonalutil.constant.RestServicesEnum;
@@ -17,7 +18,7 @@ import com.findpersonal.findpersonalws.business.rules.RulesManagerFactory;
 import com.findpersonal.findpersonalws.exception.BusinessException;
 import com.findpersonal.findpersonalws.exception.ExpectedApplicationException;
 import com.findpersonal.findpersonalws.rest.CadastroAlunoRest;
-import com.findpersonal.findpersonalws.rest.EnvioAtulizacaoAlunoRest;
+import com.findpersonal.findpersonalws.rest.EnvioAtualizacaoAlunoRest;
 import com.findpersonal.findpersonalws.util.ConverterUtils;
 
 /**
@@ -83,23 +84,28 @@ public class GerenciadorAlunoBusiness {
 		return alunoRepository.findAll();
 	}
 
-	public Integer atualizarAluno(EnvioAtulizacaoAlunoRest atulizacaoAlunoRest)
+	public Integer atualizarAluno(EnvioAtualizacaoAlunoRest atulizacaoAlunoRest)
 			throws BusinessException, ExpectedApplicationException {
 		// Converte para entity
 		final Aluno aluno = ConverterUtils.convertToAluno(atulizacaoAlunoRest);
-		aluno.getUsuario().setAtivo(Boolean.TRUE);
 		// Realiza a carga das informações do serviço de Aluno;
-//		final ChargeManager chargeManager = ChargeManagerFactory.getInstance().obterChargeManager(
-//				atulizacaoAlunoRest.getApplicationVersion(), RestServicesEnum.ATUALIZAR_CADASTRO_ALUNO);
-//		final DatabaseInformation databaseInformation = chargeManager.obterCarga(aluno, null);
+		final ChargeManager chargeManager = ChargeManagerFactory.getInstance().obterChargeManager(
+				atulizacaoAlunoRest.getApplicationVersion(), RestServicesEnum.ATUALIZAR_CADASTRO_ALUNO);
+		final DatabaseInformation databaseInformation = chargeManager.obterCarga(aluno, null);
 		// Realiza as validações dos dados
-		// final RulesManager rulesManager = RulesManagerFactory.getInstance().obterRulesManager(
-		// atulizacaoAlunoRest.getApplicationVersion(), RestServicesEnum.ATUALIZAR_CADASTRO_ALUNO);
-		// rulesManager.executarRegras(databaseInformation, aluno);
-		// AJUSTA O RELACIONAMENTO MANY TO MANY
-		aluno.getUsuario().setAluno(aluno);
+		final RulesManager rulesManager = RulesManagerFactory.getInstance().obterRulesManager(
+				atulizacaoAlunoRest.getApplicationVersion(), RestServicesEnum.ATUALIZAR_CADASTRO_ALUNO);
+		rulesManager.executarRegras(databaseInformation, aluno);
+
+		final Usuario usuario = aluno.getUsuario();
+		final Aluno alunoDatabase = alunoRepository.findOne(aluno.getCodigo());
+		final Usuario usuarioDatabase = alunoDatabase.getUsuario();
+		ConverterUtils.copyEntity(aluno, alunoDatabase, "usuario", "codigo");
+		ConverterUtils.copyEntity(usuario, usuarioDatabase, "aluno", "codigo");
+		alunoDatabase.setUsuario(usuarioDatabase);
+		usuarioDatabase.setAluno(alunoDatabase);
 		// Persiste o aluno em base
-		return usuarioRepository.save(aluno.getUsuario()).getAluno().getCodigo();
+		return usuarioRepository.save(usuarioDatabase).getAluno().getCodigo();
 	}
 
 }

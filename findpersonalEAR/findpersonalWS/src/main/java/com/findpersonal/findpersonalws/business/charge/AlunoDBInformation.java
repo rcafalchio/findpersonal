@@ -9,13 +9,22 @@ package com.findpersonal.findpersonalws.business.charge;
 public class AlunoDBInformation implements DatabaseInformation {
 
 	private Boolean emailExistente;
+	private Boolean alunoExistente;
 
 	public AlunoDBInformation(AlunoDBBuilder alunoDBBuilder) {
 		this.emailExistente = alunoDBBuilder.emailExistente;
+		this.alunoExistente = alunoDBBuilder.alunoExistente;
 	}
 
 	public Boolean isEmailExistente() {
 		return emailExistente;
+	}
+
+	/**
+	 * @return the alunoExistente
+	 */
+	public Boolean isAlunoExistente() {
+		return alunoExistente;
 	}
 
 	/**
@@ -26,12 +35,18 @@ public class AlunoDBInformation implements DatabaseInformation {
 	 */
 	public static class AlunoDBBuilder {
 		private Boolean emailExistente;
+		private Boolean alunoExistente;
 
 		public AlunoDBBuilder() {
 		}
 
 		public AlunoDBBuilder emailExistente(Boolean emailExistente) {
 			this.emailExistente = emailExistente;
+			return this;
+		}
+
+		public AlunoDBBuilder alunoExistente(Boolean alunoExistente) {
+			this.alunoExistente = alunoExistente;
 			return this;
 		}
 

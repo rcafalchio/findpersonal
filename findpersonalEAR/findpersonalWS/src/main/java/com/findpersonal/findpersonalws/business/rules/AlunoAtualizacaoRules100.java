@@ -4,20 +4,17 @@ import com.findpersonal.findpersonaljpa.entity.DatabaseEntity;
 import com.findpersonal.findpersonalws.business.charge.DatabaseInformation;
 import com.findpersonal.findpersonalws.exception.BusinessException;
 
-public class AlunoCadastroRules200 extends RulesDecorator {
+public class AlunoAtualizacaoRules100 extends RulesDecorator {
 
-	public AlunoCadastroRules200(RulesManager rulesManager) {
+	public AlunoAtualizacaoRules100(RulesManager rulesManager) {
 		super(rulesManager);
 	}
 
 	@Override
 	public void executarRegras(DatabaseInformation databaseInformation, DatabaseEntity databaseEntity)
 			throws BusinessException {
+		// TODO Implementar as regras da versão 1.00
 		super.rulesManager.executarRegras(databaseInformation, databaseEntity);
-		// TESTE
-		System.out.println("############################################################");
-		System.out.println("Aplicou a regra 2.00");
-		System.out.println("############################################################");
 	}
 
 }

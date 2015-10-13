@@ -28,7 +28,7 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 @Table(name = "TB_PERSONAL")
 @NamedQuery(name = "Personal.findAll", query = "SELECT t FROM Personal t")
-public class Personal implements Serializable, DatabaseEntity{
+public class Personal implements Serializable, DatabaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -42,18 +42,21 @@ public class Personal implements Serializable, DatabaseEntity{
 	@Column(name = "DT_NASCIMENTO")
 	private Date dataNascimento;
 
-	@OneToMany(mappedBy = "personal", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "personal", fetch = FetchType.LAZY)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<MensalidadePersonal> mensalidades;
 
-	@OneToMany(mappedBy = "personal", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "personal", fetch = FetchType.LAZY)
 	private List<LocalAtendimento> locaisAtendimento;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@Column(name = "SG_SEXO")
+	private String siglaSexo;
+
+	@ManyToMany(fetch = FetchType.LAZY)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JoinTable(name = "TB_PERSONAL_has_TB_ESPECIALIDADE", joinColumns = {
-			@JoinColumn(name = "TB_PERSONAL_CD_PERSONAL") }, inverseJoinColumns = {
-					@JoinColumn(name = "TB_ESPECIALIDADE_CD_ESPECIALIDADE") })
+			@JoinColumn(name = "TB_PERSONAL_CD_PERSONAL")}, inverseJoinColumns = {
+					@JoinColumn(name = "TB_ESPECIALIDADE_CD_ESPECIALIDADE")})
 	private List<Especialidade> especialidades;
 
 	@OneToOne
@@ -79,56 +82,123 @@ public class Personal implements Serializable, DatabaseEntity{
 	public Personal() {
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
+	/**
+	 * @return the codigo
+	 */
 	public Integer getCodigo() {
 		return codigo;
 	}
 
+	/**
+	 * @param codigo
+	 *            the codigo to set
+	 */
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+
+	/**
+	 * @return the nome
+	 */
+	public String getNome() {
+		return nome;
+	}
+
+	/**
+	 * @param nome
+	 *            the nome to set
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	/**
+	 * @return the dataNascimento
+	 */
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
 
+	/**
+	 * @param dataNascimento
+	 *            the dataNascimento to set
+	 */
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public List<LocalAtendimento> getLocaisAtendimento() {
-		return locaisAtendimento;
-	}
-
-	public void setLocaisAtendimento(List<LocalAtendimento> locaisAtendimento) {
-		this.locaisAtendimento = locaisAtendimento;
-	}
-
+	/**
+	 * @return the mensalidades
+	 */
 	public List<MensalidadePersonal> getMensalidades() {
 		return mensalidades;
 	}
 
+	/**
+	 * @param mensalidades
+	 *            the mensalidades to set
+	 */
 	public void setMensalidades(List<MensalidadePersonal> mensalidades) {
 		this.mensalidades = mensalidades;
 	}
 
+	/**
+	 * @return the locaisAtendimento
+	 */
+	public List<LocalAtendimento> getLocaisAtendimento() {
+		return locaisAtendimento;
+	}
+
+	/**
+	 * @param locaisAtendimento
+	 *            the locaisAtendimento to set
+	 */
+	public void setLocaisAtendimento(List<LocalAtendimento> locaisAtendimento) {
+		this.locaisAtendimento = locaisAtendimento;
+	}
+
+	/**
+	 * @return the siglaSexo
+	 */
+	public String getSiglaSexo() {
+		return siglaSexo;
+	}
+
+	/**
+	 * @param siglaSexo
+	 *            the siglaSexo to set
+	 */
+	public void setSiglaSexo(String siglaSexo) {
+		this.siglaSexo = siglaSexo;
+	}
+
+	/**
+	 * @return the especialidades
+	 */
 	public List<Especialidade> getEspecialidades() {
 		return especialidades;
 	}
 
+	/**
+	 * @param especialidades
+	 *            the especialidades to set
+	 */
 	public void setEspecialidades(List<Especialidade> especialidades) {
 		this.especialidades = especialidades;
 	}
 
+	/**
+	 * @return the usuario
+	 */
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	/**
+	 * @param usuario
+	 *            the usuario to set
+	 */
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 }

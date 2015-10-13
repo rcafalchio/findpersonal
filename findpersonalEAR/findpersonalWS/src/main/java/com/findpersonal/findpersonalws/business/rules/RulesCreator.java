@@ -10,12 +10,6 @@ import com.findpersonal.findpersonalws.exception.ExpectedApplicationException;
 
 public class RulesCreator {
 
-	public RulesManager createAlunoCadastroManager(ApplicationVersionEnum applicationVersionEnum)
-			throws ExpectedApplicationException {
-		final List<ApplicationVersionEnum> listEnum = applicationVersionEnum.recuperarOldVersions();
-		return instanciarRulesManager(new AlunoCadastroRulesManager(), listEnum, "AlunoCadastroRules");
-	}
-
 	/**
 	 * Método responsável por retornar os RulesMAnagers
 	 * 
@@ -37,7 +31,6 @@ public class RulesCreator {
 							rulesName);
 				} catch (ClassNotFoundException e) {
 					// Se não encontrar o carregador daquela versão pula para a próxima
-					listEnum.remove(0).getVersionName();
 					this.instanciarRulesManager(newInstance, listEnum, rulesName);
 				}
 			}
@@ -55,6 +48,58 @@ public class RulesCreator {
 			throw new ExpectedApplicationException(e);
 		}
 		return newInstance;
+	}
+
+	/**
+	 * Cria o Rules Manager da atualização do cadastro do Aluno
+	 * 
+	 * @param applicationVersionEnum
+	 * @return RulesManager
+	 * @throws ExpectedApplicationException
+	 */
+	public RulesManager createAlunoAtualizacaoManager(ApplicationVersionEnum applicationVersionEnum)
+			throws ExpectedApplicationException {
+		final List<ApplicationVersionEnum> listEnum = applicationVersionEnum.recuperarOldVersions();
+		return instanciarRulesManager(new AlunoAtualizacaoRulesManager(), listEnum, "AlunoAtualizacaoRules");
+	}
+
+	/**
+	 * Cria o Rules Manager do cadastro do Personal
+	 * 
+	 * @param applicationVersionEnum
+	 * @return RulesManager
+	 * @throws ExpectedApplicationException
+	 */
+	public RulesManager createPersonalCadastroManager(ApplicationVersionEnum applicationVersionEnum)
+			throws ExpectedApplicationException {
+		final List<ApplicationVersionEnum> listEnum = applicationVersionEnum.recuperarOldVersions();
+		return instanciarRulesManager(new PersonalCadastroRulesManager(), listEnum, "PersonalCadastroRules");
+	}
+
+	/**
+	 * Cria o Rules Manager do cadastro do Personal
+	 * 
+	 * @param applicationVersionEnum
+	 * @return RulesManager
+	 * @throws ExpectedApplicationException
+	 */
+	public RulesManager createAlunoCadastroManager(ApplicationVersionEnum applicationVersionEnum)
+			throws ExpectedApplicationException {
+		final List<ApplicationVersionEnum> listEnum = applicationVersionEnum.recuperarOldVersions();
+		return instanciarRulesManager(new AlunoCadastroRulesManager(), listEnum, "AlunoCadastroRules");
+	}
+
+	/**
+	 * Cria o Rules Manager da atualização do cadastro do Personal
+	 * 
+	 * @param applicationVersionEnum
+	 * @return RulesManager
+	 * @throws ExpectedApplicationException
+	 */
+	public RulesManager createPersonalAtualizacaoManager(ApplicationVersionEnum applicationVersionEnum)
+			throws ExpectedApplicationException {
+		final List<ApplicationVersionEnum> listEnum = applicationVersionEnum.recuperarOldVersions();
+		return instanciarRulesManager(new PersonalAtualizacaoRulesManager(), listEnum, "PersonalAtualizacaoRules");
 	}
 
 }

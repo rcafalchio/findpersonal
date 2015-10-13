@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import com.findpersonal.findpersonalutil.constant.CadastroValidationEnum;
-import com.findpersonal.findpersonalutil.constant.CommonValidationEnum;
+import com.findpersonal.findpersonalutil.constant.ValidationEnum;
 import com.findpersonal.findpersonalutil.vo.ErroNegocio;
 
 @SuppressWarnings(value = "all")
@@ -33,13 +32,14 @@ public class MessageUtils {
 		final List<ErroNegocio> erros = new ArrayList<ErroNegocio>();
 		ErroNegocio erro = null;
 		for (Object object : listaValidacoes) {
-			if(object instanceof CadastroValidationEnum){
-				final CadastroValidationEnum validationEnum = (CadastroValidationEnum) object;
+			if(object instanceof ValidationEnum){
+				final ValidationEnum validationEnum = (ValidationEnum) object;
 				erro = new ErroNegocio(validationEnum.getCodigo(), getBundle().getString(validationEnum.getPropertiesMensage()));
 				erros.add(erro);
-			}else if (object instanceof CommonValidationEnum){
-				final CommonValidationEnum validationEnum = (CommonValidationEnum) object;
-				erro = new ErroNegocio(validationEnum.getCodigo(), getBundle().getString(validationEnum.getPropertiesMensage()));
+			}else if (object instanceof ValidationEnum){
+				final ValidationEnum validationEnum = (ValidationEnum) object;
+				erro = new ErroNegocio(validationEnum.getCodigo(),
+						getBundle().getString(validationEnum.getPropertiesMensage()));
 				erros.add(erro);
 			}
 		}

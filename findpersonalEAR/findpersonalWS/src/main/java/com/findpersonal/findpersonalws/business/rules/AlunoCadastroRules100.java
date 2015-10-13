@@ -13,11 +13,8 @@ public class AlunoCadastroRules100 extends RulesDecorator {
 	@Override
 	public void executarRegras(DatabaseInformation databaseInformation, DatabaseEntity databaseEntity)
 			throws BusinessException {
+		// TODO Implementar as regras da versão 1.00
 		super.rulesManager.executarRegras(databaseInformation, databaseEntity);
-		// TESTE
-		System.out.println("############################################################");
-		System.out.println("Aplicou a regra 1.00");
-		System.out.println("############################################################");
 	}
 
 }

@@ -5,24 +5,21 @@ import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
 
-import com.findpersonal.findpersonaljpa.entity.DatabaseEntity;
 import com.findpersonal.findpersonaljpa.entity.Personal;
+import com.findpersonal.findpersonaljpa.entity.DatabaseEntity;
 import com.findpersonal.findpersonalutil.constant.ValidationEnum;
-import com.findpersonal.findpersonalws.business.charge.DatabaseInformation;
 import com.findpersonal.findpersonalws.business.charge.PersonalDBInformation;
-import com.findpersonal.findpersonalws.exception.BusinessException;
+import com.findpersonal.findpersonalws.business.charge.DatabaseInformation;
 import com.findpersonal.findpersonalws.exception.PersonalException;
 
 /**
- * Realiza as validações referente as operações com o Aluno
+ * Realiza as validações referente as operações com o Personal
  * 
  * @author Ricardo
  * @since 9 de ago de 2015
  */
-@Component
-public class PersonalCadastroRulesManager extends RulesManager {
+public class PersonalAtualizacaoRulesManager extends RulesManager {
 
 	private static final Logger LOGGER = LogManager.getLogger(PersonalCadastroRulesManager.class);
 
@@ -30,35 +27,53 @@ public class PersonalCadastroRulesManager extends RulesManager {
 	private PersonalDBInformation personalDBInformation;
 
 	/**
-	 * Default constructor
+	 * Constructor
+	 * 
+	 * @param personal
+	 * @param usuarioRepository
 	 */
-	public PersonalCadastroRulesManager() {
+	public PersonalAtualizacaoRulesManager() {
 		listaValidacoes = new ArrayList<ValidationEnum>();
 	}
 
 	@Override
-	public void executarRegras(DatabaseInformation databaseInformation, DatabaseEntity databaseEntity)
-			throws BusinessException {
-		final Personal personal = (Personal) databaseEntity;
+	public void executarRegras(DatabaseInformation databaseInformation, DatabaseEntity entity) throws PersonalException {
 		this.personalDBInformation = (PersonalDBInformation) databaseInformation;
-		// VALIDA SE O USUARIO JA EXISTE
-		this.validarEmailUsuario(personal);
+		// VALIDA SE O USUARIO EXISTE
+		this.validarExistenciaUsuario((Personal) entity);
+		// VALIDA SE O EMAIL JA EXISTE
+		this.validarExistenciaEmail((Personal) entity);
 		// VERIFICA SE DEVE VOLTAR ALGUMA VALIDACAO
 		if (!listaValidacoes.isEmpty()) {
 			throw new PersonalException(listaValidacoes);
 		}
+
 	}
 
 	/**
-	 * Valida se o usuário já existe na base de dados
+	 * Verifica se o usuário existe para poder atualizar
+	 * 
+	 * @param entity
+	 */
+	private void validarExistenciaUsuario(Personal personal) {
+		if (!this.personalDBInformation.isPersonalExistente()) {
+			LOGGER.warn("Codigo do personal não existe para atualização " + personal.getCodigo());
+			listaValidacoes.add(ValidationEnum.PERSONAL_NAO_EXISTE);
+		}
+	}
+
+	/**
+	 * Valida se o usuário já existe o e-mail na base de dados
+	 * 
+	 * @param personal
 	 * 
 	 * @param personal
 	 * @param listaValidacoes
 	 */
-	private void validarEmailUsuario(Personal personal) {
+	private void validarExistenciaEmail(Personal personal) {
 		if (personal.getUsuario().getEmail() != null && !personal.getUsuario().getEmail().isEmpty()) {
 			if (personalDBInformation.isEmailExistente()) {
-				LOGGER.warn("EMAIL JÁ EXISTENTE " + personal.getUsuario().getEmail());
+				LOGGER.warn("email JÁ EXISTENTE " + personal.getUsuario().getEmail());
 				listaValidacoes.add(ValidationEnum.EMAIL_JA_EXISTE);
 			}
 		}

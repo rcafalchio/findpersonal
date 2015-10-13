@@ -3,8 +3,8 @@ package com.findpersonal.findpersonalws.business.charge;
 import org.apache.log4j.Logger;
 
 import com.findpersonal.findpersonalutil.constant.ApplicationVersionEnum;
-import com.findpersonal.findpersonalutil.constant.CommonValidationEnum;
 import com.findpersonal.findpersonalutil.constant.RestServicesEnum;
+import com.findpersonal.findpersonalutil.constant.ValidationEnum;
 import com.findpersonal.findpersonalws.exception.BusinessException;
 import com.findpersonal.findpersonalws.exception.ExpectedApplicationException;
 import com.findpersonal.findpersonalws.util.SpringContext;
@@ -37,7 +37,7 @@ public final class ChargeManagerFactory {
 		// Verifica se a versão é conhecida
 		if (ApplicationVersionEnum.VERSION_NOT_MATCH.equals(applicationVersionEnum)) {
 			LOGGER.warn("A versão do aplicativo não é conhecida = Versao " + applicationVersion);
-			throw new BusinessException(CommonValidationEnum.VERSAO_APLICATIVO_NAO_RECONHECIDA);
+			throw new BusinessException(ValidationEnum.VERSAO_APLICATIVO_NAO_RECONHECIDA);
 		}
 
 		final ChargerCreator chargerCreator = (ChargerCreator) SpringContext.getApplicationContext()
@@ -49,13 +49,16 @@ public final class ChargeManagerFactory {
 				chargeManager = chargerCreator.createAlunoChargeManager(applicationVersionEnum);
 				break;
 			case CADASTRO_PERSONAL :
-				// chargeManager = chargerCreator.createAlunoChargeManager(applicationVersionEnum);
+				chargeManager = chargerCreator.createPersonalChargeManager(applicationVersionEnum);
 				break;
 			case ATUALIZAR_CADASTRO_ALUNO :
-				chargeManager = chargerCreator.createAlunoChargeManager(applicationVersionEnum);
+				chargeManager = chargerCreator.createAlunoAtualizacaoChargeManager(applicationVersionEnum);
+				break;
+			case ATUALIZAR_CADASTRO_PERSONAL :
+				chargeManager = chargerCreator.createPersonalAtualizacaoChargeManager(applicationVersionEnum);
 				break;
 			default :
-				throw new BusinessException(CommonValidationEnum.SERVICO_NAO_RECONHECIDO);
+				throw new BusinessException(ValidationEnum.SERVICO_NAO_RECONHECIDO);
 		}
 		return chargeManager;
 	}

@@ -61,7 +61,7 @@ public class AlunoRestService {
 	}
 
 	@RequestMapping(value = "/Cadastro/Atualizar", method = RequestMethod.POST)
-	ResponseEntity<RetornoRest> atualizar(@Validated @RequestBody EnvioAtulizacaoAlunoRest atulizacaoAlunoRest) {
+	ResponseEntity<RetornoRest> atualizar(@Validated @RequestBody EnvioAtualizacaoAlunoRest atulizacaoAlunoRest) {
 		LOGGER.info("INICIO DO SERVICO CADASTRO DE ALUNO");
 		ResponseEntity<RetornoRest> retorno = null;
 		try {
@@ -103,13 +103,6 @@ public class AlunoRestService {
 		} finally {
 			LOGGER.info("FIM DO SERVICO CADASTRO DE ALUNO");
 		}
-		return retorno;
-	}
-	
-	@RequestMapping(value = "/Cadastro/Atendimento", method = RequestMethod.POST)
-	ResponseEntity<RetornoRest> cadastrarAtendimento(@Validated @RequestBody CadastroAtendimenetoRest cadastroAtendimenetoRest) {
-		LOGGER.info("INICIO DO SERVICO CADASTRO DE ATENDIMENTO DO ALUNO");
-		ResponseEntity<RetornoRest> retorno = null;
 		return retorno;
 	}
 

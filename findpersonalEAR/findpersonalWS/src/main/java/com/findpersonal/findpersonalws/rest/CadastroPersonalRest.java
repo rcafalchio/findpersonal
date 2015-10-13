@@ -1,66 +1,84 @@
 package com.findpersonal.findpersonalws.rest;
 
-import java.util.Date;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CadastroPersonalRest extends EnvioRest {
-	
-	private String login;
-	private String senha;
-	private String email;
-	private String nome;
-	private Date dataNascimento;
-	private String siglaSexo;
-	private List<CadastroLocalAtendimentoRest> listaAtendimento;
-	private List<Integer> codigosEspecialidades;
 
-	public String getLogin() {
-		return login;
-	}
-	public void setLogin(String login) {
-		this.login = login;
-	}
+	@JsonProperty("PW")
+	@NotNull(message = "O parametro não pode ser nulo")
+	private String senha;
+
+	@JsonProperty("MAIL")
+	@NotNull(message = "O parametro não pode ser nulo")
+	private String email;
+
+	@JsonProperty("NM")
+	@NotNull(message = "O parametro não pode ser nulo")
+	private String nome;
+
+	@JsonProperty("CFB")
+	private Integer codigoFacebook;
+
+	/**
+	 * @return the senha
+	 */
 	public String getSenha() {
 		return senha;
 	}
+
+	/**
+	 * @param senha
+	 *            the senha to set
+	 */
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
+	/**
+	 * @return the email
+	 */
 	public String getEmail() {
 		return email;
 	}
+
+	/**
+	 * @param email
+	 *            the email to set
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	/**
+	 * @return the nome
+	 */
 	public String getNome() {
 		return nome;
 	}
+
+	/**
+	 * @param nome
+	 *            the nome to set
+	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Date getDataNascimento() {
-		return dataNascimento;
+
+	/**
+	 * @return the codigoFacebook
+	 */
+	public Integer getCodigoFacebook() {
+		return codigoFacebook;
 	}
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-	public String getSiglaSexo() {
-		return siglaSexo;
-	}
-	public void setSiglaSexo(String siglaSexo) {
-		this.siglaSexo = siglaSexo;
-	}
-	public List<CadastroLocalAtendimentoRest> getListaAtendimento() {
-		return listaAtendimento;
-	}
-	public void setListaAtendimento(List<CadastroLocalAtendimentoRest> listaAtendimento) {
-		this.listaAtendimento = listaAtendimento;
-	}
-	public List<Integer> getCodigosEspecialidades() {
-		return codigosEspecialidades;
-	}
-	public void setCodigosEspecialidades(List<Integer> codigosEspecialidades) {
-		this.codigosEspecialidades = codigosEspecialidades;
+
+	/**
+	 * @param codigoFacebook
+	 *            the codigoFacebook to set
+	 */
+	public void setCodigoFacebook(Integer codigoFacebook) {
+		this.codigoFacebook = codigoFacebook;
 	}
 
 }

@@ -1,9 +1,9 @@
 package com.findpersonal.findpersonalws.rest;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.findpersonal.findpersonaljpa.entity.LocalAtendimento;
 import com.findpersonal.findpersonaljpa.entity.Personal;
 import com.findpersonal.findpersonalutil.util.MessageUtils;
 import com.findpersonal.findpersonalws.business.GerenciadorPersonalBusiness;
@@ -51,32 +50,58 @@ public class PersonalRestService {
 			retorno = new RetornoCadastroRest(RetornoRestEnum.SUCESSO);
 		} catch (BusinessException e) {
 			LOGGER.warn("Cadastro não concluído", e);
-			retorno = new RetornoCadastroRest(RetornoRestEnum.ERRO_NEGOCIO, MessageUtils.getErros(e.getListaValidacoes()));
+			retorno = new RetornoCadastroRest(RetornoRestEnum.ERRO_NEGOCIO,
+					MessageUtils.getErros(e.getListaValidacoes()));
 		} catch (Exception e) {
-			LOGGER.error("Houve um erro no servico CADASTRO DE PERSONAL", e);
+			LOGGER.error("Houve um erro no servico  CADASTRO DE PERSONAL", e);
+			retorno = new RetornoCadastroRest(RetornoRestEnum.SISTEMA_INDISPONIVEL);
 		} finally {
-			LOGGER.info("FIM DO SERVICO CADASTRO DE PERSONAL");
+			LOGGER.info("INICIO DO SERVICO  CADASTRO DE PERSONAL");
 		}
 		return retorno;
 	}
 
-	@RequestMapping(value = "/Cadastro/Atendimento", method = RequestMethod.POST)
-	RetornoCadastroRest cadastrarAtendimento(@RequestBody Personal personal,
-			@RequestBody List<LocalAtendimento> locaisAtendimento) {
-		LOGGER.info("INICIO DO SERVICO CADASTRO DE ATENDIMENTO");
-		RetornoCadastroRest retorno = null;
+	@RequestMapping(value = "/Cadastro/Atualizar", method = RequestMethod.POST)
+	ResponseEntity<RetornoRest> cadastrar(@RequestBody EnvioAtualizacaoPersonalRest atualizacaoPersonalRest) {
+		LOGGER.info("INICIO DO SERVICO ATUALIZAR CADASTRO DE PERSONAL");
+		ResponseEntity<RetornoRest> retorno = null;
 		try {
-			gerenciadorPersonalBusiness.cadastrarAtendimento(personal, locaisAtendimento);
-			retorno = new RetornoCadastroRest(RetornoRestEnum.SUCESSO);
+			Integer codigoAluno = gerenciadorPersonalBusiness.atualizarPersonal(atualizacaoPersonalRest);
+			RetornoCadastroRest retornoCadastroRest = new RetornoCadastroRest(RetornoRestEnum.SUCESSO);
+			retornoCadastroRest.setCodigoCadastro(codigoAluno);
+			retorno = new ResponseEntity<RetornoRest>(retornoCadastroRest, HttpStatus.OK);
 		} catch (BusinessException e) {
 			LOGGER.warn("Cadastro não concluído", e);
-			retorno = new RetornoCadastroRest(RetornoRestEnum.ERRO_NEGOCIO, MessageUtils.getErros(e.getListaValidacoes()));
+			retorno = new ResponseEntity<RetornoRest>(new RetornoCadastroRest(RetornoRestEnum.ERRO_NEGOCIO,
+					MessageUtils.getErros(e.getListaValidacoes())), HttpStatus.OK);
 		} catch (Exception e) {
-			LOGGER.error("Houve um erro no servico CADASTRO DE ATENDIMENTO", e);
+			LOGGER.error("Houve um erro no servico ATUALIZAR CADASTRO DE PERSONAL", e);
+			retorno = new ResponseEntity<RetornoRest>(new RetornoCadastroRest(RetornoRestEnum.SISTEMA_INDISPONIVEL),
+					HttpStatus.OK);
 		} finally {
-			LOGGER.info("FIM DO SERVICO CADASTRO DE PERSONAL");
+			LOGGER.info("FIM DO SERVICO ATUALIZAR CADASTRO DE PERSONAL");
 		}
 		return retorno;
 	}
+
+//	@RequestMapping(value = "/Cadastro/Atendimento", method = RequestMethod.POST)
+//	ResponseEntity<RetornoRest> cadastrarAtendimento(@RequestBody Personal personal,
+//			@RequestBody List<LocalAtendimento> locaisAtendimento) {
+//		LOGGER.info("INICIO DO SERVICO CADASTRO DE ATENDIMENTO");
+//		RetornoCadastroRest retorno = null;
+//		try {
+//			gerenciadorPersonalBusiness.cadastrarAtendimento(personal, locaisAtendimento);
+//			retorno = new RetornoCadastroRest(RetornoRestEnum.SUCESSO);
+//		} catch (BusinessException e) {
+//			LOGGER.warn("Cadastro não concluído", e);
+//			retorno = new RetornoCadastroRest(RetornoRestEnum.ERRO_NEGOCIO,
+//					MessageUtils.getErros(e.getListaValidacoes()));
+//		} catch (Exception e) {
+//			LOGGER.error("Houve um erro no servico CADASTRO DE ATENDIMENTO", e);
+//		} finally {
+//			LOGGER.info("FIM DO SERVICO CADASTRO DE PERSONAL");
+//		}
+//		return retorno;
+//	}
 
 }

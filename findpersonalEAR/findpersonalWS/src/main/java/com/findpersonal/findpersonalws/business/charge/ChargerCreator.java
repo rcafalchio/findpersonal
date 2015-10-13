@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.findpersonal.findpersonaljpa.repository.AlunoRepository;
+import com.findpersonal.findpersonaljpa.repository.PersonalRepository;
 import com.findpersonal.findpersonaljpa.repository.UsuarioRepository;
 import com.findpersonal.findpersonalutil.constant.ApplicationVersionEnum;
 import com.findpersonal.findpersonalutil.constant.Constants;
@@ -22,11 +23,8 @@ public class ChargerCreator {
 	@Autowired
 	AlunoRepository alunoRepository;
 
-	public ChargeManager createAlunoChargeManager(ApplicationVersionEnum applicationVersionEnum)
-			throws ExpectedApplicationException {
-		final List<ApplicationVersionEnum> listEnum = applicationVersionEnum.recuperarOldVersions();
-		return instanciarChargeManager(new AlunoCharger(alunoRepository, usuarioRepository), listEnum, "AlunoCharger");
-	}
+	@Autowired
+	PersonalRepository personalRepository;
 
 	/**
 	 * Método recursivo que retorna os ChargeManagers
@@ -49,7 +47,6 @@ public class ChargerCreator {
 							chargerName);
 				} catch (ClassNotFoundException e) {
 					// Se não encontrar o carregador daquela versão pula para a próxima
-					listEnum.remove(0).getVersionName();
 					this.instanciarChargeManager(newInstance, listEnum, chargerName);
 				}
 			}
@@ -67,6 +64,63 @@ public class ChargerCreator {
 			throw new ExpectedApplicationException(e);
 		}
 		return newInstance;
+	}
+
+	/**
+	 * Cria o Chager do Cadastro do Aluno
+	 * 
+	 * @param applicationVersionEnum
+	 * @return ChargeManager
+	 * @throws ExpectedApplicationException
+	 */
+	public ChargeManager createAlunoChargeManager(ApplicationVersionEnum applicationVersionEnum)
+			throws ExpectedApplicationException {
+		final List<ApplicationVersionEnum> listEnum = applicationVersionEnum.recuperarOldVersions();
+		return instanciarChargeManager(new AlunoCadastroCharger(alunoRepository, usuarioRepository), listEnum,
+				"AlunoCharger");
+	}
+
+	/**
+	 * Cria o Chager da atualização do Cadastro do Aluno
+	 * 
+	 * @param applicationVersionEnum
+	 * @return ChargeManager
+	 * @throws ExpectedApplicationException
+	 */
+	public ChargeManager createAlunoAtualizacaoChargeManager(ApplicationVersionEnum applicationVersionEnum)
+			throws ExpectedApplicationException {
+		final List<ApplicationVersionEnum> listEnum = applicationVersionEnum.recuperarOldVersions();
+		return instanciarChargeManager(new AlunoAtualizacaoCharger(alunoRepository, usuarioRepository), listEnum,
+				"AlunoAtualizacaoCharger");
+	}
+
+	/**
+	 * Cria o Chager da atualização do Cadastro do Personal
+	 * 
+	 * @param applicationVersionEnum
+	 * @return ChargeManager
+	 * @throws ExpectedApplicationException
+	 */
+	public ChargeManager createPersonalAtualizacaoChargeManager(ApplicationVersionEnum applicationVersionEnum)
+			throws ExpectedApplicationException {
+		final List<ApplicationVersionEnum> listEnum = applicationVersionEnum.recuperarOldVersions();
+		return instanciarChargeManager(new PersonalAtualizacaoCharger(personalRepository, usuarioRepository), listEnum,
+				"PersonalAtualizacaoCharger");
+	}
+
+	/**
+	 * Cria o Chager do Cadastro do Personal
+	 * 
+	 * @param applicationVersionEnum
+	 * @return ChargeManager
+	 * @throws ExpectedApplicationException
+	 */
+	public ChargeManager createPersonalChargeManager(ApplicationVersionEnum applicationVersionEnum)
+			throws ExpectedApplicationException {
+
+		final List<ApplicationVersionEnum> listEnum = applicationVersionEnum.recuperarOldVersions();
+		return instanciarChargeManager(new PersonalCadastroCharger(personalRepository, usuarioRepository), listEnum,
+				"PersonalCharger");
 	}
 
 }

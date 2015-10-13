@@ -19,7 +19,7 @@ import com.findpersonal.findpersonalws.exception.AlunoException;
  * @author Ricardo
  * @since 9 de ago de 2015
  */
-public class AlunoCadastroRulesManager extends RulesManager {
+public class AlunoAtualizacaoRulesManager extends RulesManager {
 
 	private static final Logger LOGGER = LogManager.getLogger(AlunoCadastroRulesManager.class);
 
@@ -32,13 +32,15 @@ public class AlunoCadastroRulesManager extends RulesManager {
 	 * @param aluno
 	 * @param usuarioRepository
 	 */
-	public AlunoCadastroRulesManager() {
+	public AlunoAtualizacaoRulesManager() {
 		listaValidacoes = new ArrayList<ValidationEnum>();
 	}
 
 	@Override
 	public void executarRegras(DatabaseInformation databaseInformation, DatabaseEntity entity) throws AlunoException {
 		this.alunoDBInformation = (AlunoDBInformation) databaseInformation;
+		// VALIDA SE O USUARIO EXISTE
+		this.validarExistenciaUsuario((Aluno) entity);
 		// VALIDA SE O EMAIL JA EXISTE
 		this.validarExistenciaEmail((Aluno) entity);
 		// VERIFICA SE DEVE VOLTAR ALGUMA VALIDACAO
@@ -46,6 +48,18 @@ public class AlunoCadastroRulesManager extends RulesManager {
 			throw new AlunoException(listaValidacoes);
 		}
 
+	}
+
+	/**
+	 * Verifica se o usuário existe para poder atualizar
+	 * 
+	 * @param entity
+	 */
+	private void validarExistenciaUsuario(Aluno entity) {
+		if (!this.alunoDBInformation.isAlunoExistente()) {
+			LOGGER.warn("Codigo do aluno não existe para atualização " + entity.getCodigo());
+			listaValidacoes.add(ValidationEnum.ALUNO_NAO_EXISTE);
+		}
 	}
 
 	/**

@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.findpersonal.findpersonaljpa.entity.Usuario;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, String> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
 	Usuario findByEmail(String email);
 

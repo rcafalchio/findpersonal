@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.findpersonal.findpersonalutil.constant.CommonValidationEnum;
+import com.findpersonal.findpersonalutil.constant.ValidationEnum;
 import com.findpersonal.findpersonalutil.util.MessageUtils;
 import com.findpersonal.findpersonalutil.vo.ErroNegocio;
 import com.findpersonal.findpersonalws.rest.RetornoRest.RetornoRestEnum;
@@ -37,12 +37,12 @@ public class ControllerValidationHandler {
 
 		RetornoRest retornoRest = new RetornoCadastroRest(RetornoRestEnum.ERRO_NEGOCIO);
 		StringBuffer buffer = new StringBuffer(MessageUtils.getBundle()
-				.getString(CommonValidationEnum.ERRO_NOS_PARAMETROS_ENVIO.getPropertiesMensage()).concat(";"));
+				.getString(ValidationEnum.ERRO_NOS_PARAMETROS_ENVIO.getPropertiesMensage()).concat(";"));
 		for (FieldError fieldError : errors) {
 			buffer.append("[" + fieldError.getField() + "]");
 			buffer.append(fieldError.getDefaultMessage().concat(";"));
 		}
-		final ErroNegocio erroNegocio = new ErroNegocio(CommonValidationEnum.ERRO_NOS_PARAMETROS_ENVIO.getCodigo(),
+		final ErroNegocio erroNegocio = new ErroNegocio(ValidationEnum.ERRO_NOS_PARAMETROS_ENVIO.getCodigo(),
 				buffer.toString());
 		retornoRest.getListaErrosNegocio().add(erroNegocio);
 		return retornoRest;

@@ -7,7 +7,7 @@ import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class EnvioAtulizacaoAlunoRest extends CadastroAlunoRest {
+public class EnvioAtualizacaoAlunoRest extends CadastroAlunoRest {
 
 	@JsonProperty("CD")
 	@NotNull(message = "O parametro não pode ser nulo")
@@ -19,7 +19,10 @@ public class EnvioAtulizacaoAlunoRest extends CadastroAlunoRest {
 	@JsonProperty("SX")
 	@Pattern(regexp = "[MmFf]")
 	private String siglaSexo;
-	
+
+	@JsonProperty("AT")
+	private Boolean ativo;
+
 	/**
 	 * @return the codigo
 	 */
@@ -58,6 +61,19 @@ public class EnvioAtulizacaoAlunoRest extends CadastroAlunoRest {
 	 */
 	public void setSiglaSexo(String siglaSexo) {
 		this.siglaSexo = siglaSexo;
+	}
+	/**
+	 * @return the ativo
+	 */
+	public Boolean getAtivo() {
+		return ativo;
+	}
+	/**
+	 * @param ativo
+	 *            the ativo to set
+	 */
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
 
 }
