@@ -40,17 +40,15 @@ public final class ConverterUtils {
 	 * @return Aluno
 	 */
 	public static Aluno convertToAluno(EnvioRest envioRest) {
-
-		CadastroAlunoRest cadastroAlunoRest = (CadastroAlunoRest) envioRest;
 		Aluno aluno = new Aluno();
-		aluno.setNome(cadastroAlunoRest.getNome());
-		aluno.setUsuario(new Usuario());
-		aluno.getUsuario().setEmail(cadastroAlunoRest.getEmail());
-		aluno.getUsuario().setSenha(cadastroAlunoRest.getSenha());
 
-		if (cadastroAlunoRest instanceof EnvioAtualizacaoAlunoRest) {
-			EnvioAtualizacaoAlunoRest atulizacaoAlunoRest = (EnvioAtualizacaoAlunoRest) cadastroAlunoRest;
-			aluno.setCodigo(((EnvioAtualizacaoAlunoRest) cadastroAlunoRest).getCodigo());
+		if (envioRest instanceof EnvioAtualizacaoAlunoRest) {
+			EnvioAtualizacaoAlunoRest atulizacaoAlunoRest = (EnvioAtualizacaoAlunoRest) envioRest;
+			aluno.setNome(atulizacaoAlunoRest.getNome());
+			aluno.setUsuario(new Usuario());
+			aluno.getUsuario().setEmail(atulizacaoAlunoRest.getEmail());
+			aluno.getUsuario().setSenha(atulizacaoAlunoRest.getSenha());
+			aluno.setCodigo(atulizacaoAlunoRest.getCodigo());
 			aluno.setSiglaSexo(atulizacaoAlunoRest.getSiglaSexo());
 			aluno.setDataNascimento(atulizacaoAlunoRest.getDataNascimento());
 			if (atulizacaoAlunoRest.getAtivo() == null) {
@@ -58,13 +56,26 @@ public final class ConverterUtils {
 			} else {
 				aluno.getUsuario().setAtivo(atulizacaoAlunoRest.getAtivo());
 			}
-		}
 
-		if (cadastroAlunoRest.getCodigoFacebook() != null) {
-			aluno.getUsuario().setCodigoFacebook(cadastroAlunoRest.getCodigoFacebook());
-			aluno.getUsuario().setLoginFacebook(Boolean.TRUE);
+			if (atulizacaoAlunoRest.getCodigoFacebook() != null) {
+				aluno.getUsuario().setCodigoFacebook(atulizacaoAlunoRest.getCodigoFacebook());
+				aluno.getUsuario().setLoginFacebook(Boolean.TRUE);
+			} else {
+				aluno.getUsuario().setLoginFacebook(Boolean.FALSE);
+			}
 		} else {
-			aluno.getUsuario().setLoginFacebook(Boolean.FALSE);
+			CadastroAlunoRest cadastroAlunoRest = (CadastroAlunoRest) envioRest;
+			aluno.setNome(cadastroAlunoRest.getNome());
+			aluno.setUsuario(new Usuario());
+			aluno.getUsuario().setEmail(cadastroAlunoRest.getEmail());
+			aluno.getUsuario().setSenha(cadastroAlunoRest.getSenha());
+
+			if (cadastroAlunoRest.getCodigoFacebook() != null) {
+				aluno.getUsuario().setCodigoFacebook(cadastroAlunoRest.getCodigoFacebook());
+				aluno.getUsuario().setLoginFacebook(Boolean.TRUE);
+			} else {
+				aluno.getUsuario().setLoginFacebook(Boolean.FALSE);
+			}
 		}
 
 		return aluno;
@@ -77,20 +88,20 @@ public final class ConverterUtils {
 	 * @return
 	 */
 	public static Personal convertToPersonal(EnvioRest envioRest) {
-		CadastroPersonalRest cadastroPersonalRest = (CadastroPersonalRest) envioRest;
 		final Personal personal = new Personal();
-		personal.setNome(cadastroPersonalRest.getNome());
-		personal.setUsuario(new Usuario());
-		personal.getUsuario().setEmail(cadastroPersonalRest.getEmail());
-		personal.getUsuario().setSenha(cadastroPersonalRest.getSenha());
-		if (cadastroPersonalRest.getCodigoFacebook() != null) {
-			personal.getUsuario().setCodigoFacebook(cadastroPersonalRest.getCodigoFacebook());
-			personal.getUsuario().setLoginFacebook(Boolean.TRUE);
-		} else {
-			personal.getUsuario().setLoginFacebook(Boolean.FALSE);
-		}
-		if (cadastroPersonalRest instanceof EnvioAtualizacaoPersonalRest) {
-			EnvioAtualizacaoPersonalRest atulizacaoPersonalRest = (EnvioAtualizacaoPersonalRest) cadastroPersonalRest;
+
+		if (envioRest instanceof EnvioAtualizacaoPersonalRest) {
+			EnvioAtualizacaoPersonalRest atulizacaoPersonalRest = (EnvioAtualizacaoPersonalRest) envioRest;
+			personal.setNome(atulizacaoPersonalRest.getNome());
+			personal.setUsuario(new Usuario());
+			personal.getUsuario().setEmail(atulizacaoPersonalRest.getEmail());
+			personal.getUsuario().setSenha(atulizacaoPersonalRest.getSenha());
+			if (atulizacaoPersonalRest.getCodigoFacebook() != null) {
+				personal.getUsuario().setCodigoFacebook(atulizacaoPersonalRest.getCodigoFacebook());
+				personal.getUsuario().setLoginFacebook(Boolean.TRUE);
+			} else {
+				personal.getUsuario().setLoginFacebook(Boolean.FALSE);
+			}
 			personal.setSiglaSexo(atulizacaoPersonalRest.getSiglaSexo());
 			personal.setDataNascimento(atulizacaoPersonalRest.getDataNascimento());
 			personal.setCodigo(atulizacaoPersonalRest.getCodigo());
@@ -98,6 +109,18 @@ public final class ConverterUtils {
 				personal.getUsuario().setAtivo(Boolean.TRUE);
 			} else {
 				personal.getUsuario().setAtivo(atulizacaoPersonalRest.getAtivo());
+			}
+		} else {
+			CadastroPersonalRest cadastroPersonalRest = (CadastroPersonalRest) envioRest;
+			personal.setNome(cadastroPersonalRest.getNome());
+			personal.setUsuario(new Usuario());
+			personal.getUsuario().setEmail(cadastroPersonalRest.getEmail());
+			personal.getUsuario().setSenha(cadastroPersonalRest.getSenha());
+			if (cadastroPersonalRest.getCodigoFacebook() != null) {
+				personal.getUsuario().setCodigoFacebook(cadastroPersonalRest.getCodigoFacebook());
+				personal.getUsuario().setLoginFacebook(Boolean.TRUE);
+			} else {
+				personal.getUsuario().setLoginFacebook(Boolean.FALSE);
 			}
 		}
 		return personal;
@@ -156,7 +179,7 @@ public final class ConverterUtils {
 					}
 				}
 			}
-			
+
 			final String[] stringArray = new String[listaIgnore.size()];
 			for (String string : listaIgnore) {
 				stringArray[listaIgnore.indexOf(string)] = string;

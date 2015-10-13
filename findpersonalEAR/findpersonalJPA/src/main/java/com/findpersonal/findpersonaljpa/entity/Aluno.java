@@ -21,7 +21,6 @@ public class Aluno implements Serializable, DatabaseEntity{
 	 */
 	private static final long serialVersionUID = 1L;
 
-
 	@OneToOne
 	@JoinColumn(name = "TB_USUARIO_CD_USUARIO")
 	private Usuario usuario;
@@ -40,6 +39,9 @@ public class Aluno implements Serializable, DatabaseEntity{
 	@Column(name = "SG_SEXO")
 	private String siglaSexo;
 
+	@Column(name = "NU_CPF")
+	private Long cpf;
+	
 	public Aluno() {
 	}
 
@@ -133,6 +135,20 @@ public class Aluno implements Serializable, DatabaseEntity{
 	 */
 	public void setSiglaSexo(String siglaSexo) {
 		this.siglaSexo = siglaSexo;
+	}
+
+	/**
+	 * @return the cpf
+	 */
+	public Long getCpf() {
+		return cpf;
+	}
+
+	/**
+	 * @param cpf the cpf to set
+	 */
+	public void setCpf(Long cpf) {
+		this.cpf = cpf;
 	}
 
 }

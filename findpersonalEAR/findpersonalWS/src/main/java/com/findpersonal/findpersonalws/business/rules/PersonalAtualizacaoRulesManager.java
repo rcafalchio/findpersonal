@@ -37,7 +37,8 @@ public class PersonalAtualizacaoRulesManager extends RulesManager {
 	}
 
 	@Override
-	public void executarRegras(DatabaseInformation databaseInformation, DatabaseEntity entity) throws PersonalException {
+	public void executarRegras(DatabaseInformation databaseInformation, DatabaseEntity entity)
+			throws PersonalException {
 		this.personalDBInformation = (PersonalDBInformation) databaseInformation;
 		// VALIDA SE O USUARIO EXISTE
 		this.validarExistenciaUsuario((Personal) entity);
@@ -72,7 +73,9 @@ public class PersonalAtualizacaoRulesManager extends RulesManager {
 	 */
 	private void validarExistenciaEmail(Personal personal) {
 		if (personal.getUsuario().getEmail() != null && !personal.getUsuario().getEmail().isEmpty()) {
-			if (personalDBInformation.isEmailExistente()) {
+			if (personalDBInformation.getUsuarioEmail() != null
+					&& personalDBInformation.getUsuarioEmail().getPersonal() != null && !personal.getCodigo()
+							.equals(personalDBInformation.getUsuarioEmail().getPersonal().getCodigo())) {
 				LOGGER.warn("email JÁ EXISTENTE " + personal.getUsuario().getEmail());
 				listaValidacoes.add(ValidationEnum.EMAIL_JA_EXISTE);
 			}

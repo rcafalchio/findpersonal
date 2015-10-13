@@ -7,15 +7,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class CadastroAlunoRest extends EnvioRest {
 
 	@JsonProperty("PW")
-	@NotNull(message = "O parametro não pode ser nulo")
+	@NotNull
 	private String senha;
 	
 	@JsonProperty("MAIL")
-	@NotNull(message = "O parametro não pode ser nulo")
+	@NotNull
 	private String email;
 	
 	@JsonProperty("NM")
-	@NotNull(message = "O parametro não pode ser nulo")
+	@NotNull
 	private String nome;
 	
 	@JsonProperty("CFB")

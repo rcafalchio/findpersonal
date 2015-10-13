@@ -72,7 +72,8 @@ public class AlunoAtualizacaoRulesManager extends RulesManager {
 	 */
 	private void validarExistenciaEmail(Aluno aluno) {
 		if (aluno.getUsuario().getEmail() != null && !aluno.getUsuario().getEmail().isEmpty()) {
-			if (alunoDBInformation.isEmailExistente()) {
+			if (alunoDBInformation.getUsuarioEmail() != null && alunoDBInformation.getUsuarioEmail().getAluno() != null
+					&& !aluno.getCodigo().equals(alunoDBInformation.getUsuarioEmail().getAluno().getCodigo())) {
 				LOGGER.warn("email JÁ EXISTENTE " + aluno.getUsuario().getEmail());
 				listaValidacoes.add(ValidationEnum.EMAIL_JA_EXISTE);
 			}

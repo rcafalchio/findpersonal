@@ -62,8 +62,9 @@ public class GerenciadorPersonalBusiness {
 		rulesManager.executarRegras(databaseInformation, personal);
 		// AJUSTA O RELACIONAMENTO MANY TO MANY
 		personal.getUsuario().setPersonal(personal);
+		final Personal personalSaved = usuarioRepository.save(personal.getUsuario()).getPersonal();
 		// Persiste o aluno em base
-		return usuarioRepository.save(personal.getUsuario()).getCodigo();
+		return personalSaved.getCodigo();
 	}
 
 	/**

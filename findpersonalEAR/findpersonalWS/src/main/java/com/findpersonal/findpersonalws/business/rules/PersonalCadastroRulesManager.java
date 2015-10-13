@@ -57,7 +57,7 @@ public class PersonalCadastroRulesManager extends RulesManager {
 	 */
 	private void validarEmailUsuario(Personal personal) {
 		if (personal.getUsuario().getEmail() != null && !personal.getUsuario().getEmail().isEmpty()) {
-			if (personalDBInformation.isEmailExistente()) {
+			if (personalDBInformation.getUsuarioEmail() != null) {
 				LOGGER.warn("EMAIL JÁ EXISTENTE " + personal.getUsuario().getEmail());
 				listaValidacoes.add(ValidationEnum.EMAIL_JA_EXISTE);
 			}

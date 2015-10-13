@@ -52,6 +52,12 @@ public class Personal implements Serializable, DatabaseEntity {
 	@Column(name = "SG_SEXO")
 	private String siglaSexo;
 
+	@Column(name = "NU_CPF")
+	private Long cpf;
+
+	@Column(name = "CREF")
+	private String cref;
+	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JoinTable(name = "TB_PERSONAL_has_TB_ESPECIALIDADE", joinColumns = {
@@ -158,21 +164,6 @@ public class Personal implements Serializable, DatabaseEntity {
 	}
 
 	/**
-	 * @return the siglaSexo
-	 */
-	public String getSiglaSexo() {
-		return siglaSexo;
-	}
-
-	/**
-	 * @param siglaSexo
-	 *            the siglaSexo to set
-	 */
-	public void setSiglaSexo(String siglaSexo) {
-		this.siglaSexo = siglaSexo;
-	}
-
-	/**
 	 * @return the especialidades
 	 */
 	public List<Especialidade> getEspecialidades() {
@@ -200,5 +191,49 @@ public class Personal implements Serializable, DatabaseEntity {
 	 */
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	/**
+	 * @return the siglaSexo
+	 */
+	public String getSiglaSexo() {
+		return siglaSexo;
+	}
+
+	/**
+	 * @param siglaSexo
+	 *            the siglaSexo to set
+	 */
+	public void setSiglaSexo(String siglaSexo) {
+		this.siglaSexo = siglaSexo;
+	}
+
+	/**
+	 * @return the cpf
+	 */
+	public Long getCpf() {
+		return cpf;
+	}
+
+	/**
+	 * @param cpf
+	 *            the cpf to set
+	 */
+	public void setCpf(Long cpf) {
+		this.cpf = cpf;
+	}
+
+	/**
+	 * @return the cref
+	 */
+	public String getCref() {
+		return cref;
+	}
+
+	/**
+	 * @param cref the cref to set
+	 */
+	public void setCref(String cref) {
+		this.cref = cref;
 	}
 }

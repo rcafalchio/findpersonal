@@ -1,5 +1,7 @@
 package com.findpersonal.findpersonalws.business.charge;
 
+import com.findpersonal.findpersonaljpa.entity.Usuario;
+
 /**
  * Dados do aluno retornados da base
  * 
@@ -8,11 +10,11 @@ package com.findpersonal.findpersonalws.business.charge;
  */
 public class PersonalDBInformation implements DatabaseInformation {
 
-	private Boolean emailExistente;
+	private Usuario usuarioEmail = null;
 	private Boolean personalExistente;
 
 	public PersonalDBInformation(PersonalDBBuilder personalDBBuilder) {
-		this.emailExistente = personalDBBuilder.emailExistente;
+		this.usuarioEmail = personalDBBuilder.usuarioEmail;
 		this.personalExistente = personalDBBuilder.personalExistente;
 	}
 
@@ -23,14 +25,14 @@ public class PersonalDBInformation implements DatabaseInformation {
 	 *
 	 */
 	public static class PersonalDBBuilder {
-		private Boolean emailExistente;
+		private Usuario usuarioEmail;
 		private Boolean personalExistente;
 
 		public PersonalDBBuilder() {
 		}
 
-		public PersonalDBBuilder emailExistente(Boolean emailExistente) {
-			this.emailExistente = emailExistente;
+		public PersonalDBBuilder usuarioEmail(Usuario usuarioEmail) {
+			this.usuarioEmail = usuarioEmail;
 			return this;
 		}
 
@@ -42,13 +44,7 @@ public class PersonalDBInformation implements DatabaseInformation {
 		public PersonalDBInformation build() {
 			return new PersonalDBInformation(this);
 		}
-	}
 
-	/**
-	 * @return the emailExistente
-	 */
-	public Boolean isEmailExistente() {
-		return emailExistente;
 	}
 
 	/**
@@ -56,6 +52,13 @@ public class PersonalDBInformation implements DatabaseInformation {
 	 */
 	public Boolean isPersonalExistente() {
 		return personalExistente;
+	}
+
+	/**
+	 * @return the usuarioEmail
+	 */
+	public Usuario getUsuarioEmail() {
+		return usuarioEmail;
 	}
 
 }

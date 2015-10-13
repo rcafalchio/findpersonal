@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,27 +43,30 @@ public class PersonalRestService {
 	}
 
 	@RequestMapping(value = "/Cadastro", method = RequestMethod.POST)
-	RetornoCadastroRest cadastrar(@RequestBody CadastroPersonalRest cadastroPersonalRest) {
-		LOGGER.info("INICIO DO SERVICO CADASTRO DE PERSONAL");
-		RetornoCadastroRest retorno = null;
+	ResponseEntity<RetornoRest> cadastrar(@Validated @RequestBody CadastroPersonalRest cadastroPersonalRest) {
+		LOGGER.info("INICIO DO SERVICO CADASTRO DE ALUNO");
+		ResponseEntity<RetornoRest> retorno = null;
 		try {
-			gerenciadorPersonalBusiness.cadastrarPersonal(cadastroPersonalRest);
-			retorno = new RetornoCadastroRest(RetornoRestEnum.SUCESSO);
+			Integer codigoPersonal = gerenciadorPersonalBusiness.cadastrarPersonal(cadastroPersonalRest);
+			RetornoCadastroRest retornoCadastroRest = new RetornoCadastroRest(RetornoRestEnum.SUCESSO);
+			retornoCadastroRest.setCodigoCadastro(codigoPersonal);
+			retorno = new ResponseEntity<RetornoRest>(retornoCadastroRest, HttpStatus.OK);
 		} catch (BusinessException e) {
 			LOGGER.warn("Cadastro não concluído", e);
-			retorno = new RetornoCadastroRest(RetornoRestEnum.ERRO_NEGOCIO,
-					MessageUtils.getErros(e.getListaValidacoes()));
+			retorno = new ResponseEntity<RetornoRest>(new RetornoCadastroRest(RetornoRestEnum.ERRO_NEGOCIO,
+					MessageUtils.getErros(e.getListaValidacoes())), HttpStatus.OK);
 		} catch (Exception e) {
-			LOGGER.error("Houve um erro no servico  CADASTRO DE PERSONAL", e);
-			retorno = new RetornoCadastroRest(RetornoRestEnum.SISTEMA_INDISPONIVEL);
+			LOGGER.error("Houve um erro no servico CADASTRO DE ALUNO", e);
+			retorno = new ResponseEntity<RetornoRest>(new RetornoCadastroRest(RetornoRestEnum.SISTEMA_INDISPONIVEL),
+					HttpStatus.OK);
 		} finally {
-			LOGGER.info("INICIO DO SERVICO  CADASTRO DE PERSONAL");
+			LOGGER.info("FIM DO SERVICO CADASTRO DE ALUNO");
 		}
 		return retorno;
 	}
 
 	@RequestMapping(value = "/Cadastro/Atualizar", method = RequestMethod.POST)
-	ResponseEntity<RetornoRest> cadastrar(@RequestBody EnvioAtualizacaoPersonalRest atualizacaoPersonalRest) {
+	ResponseEntity<RetornoRest> cadastrar(@Validated @RequestBody EnvioAtualizacaoPersonalRest atualizacaoPersonalRest) {
 		LOGGER.info("INICIO DO SERVICO ATUALIZAR CADASTRO DE PERSONAL");
 		ResponseEntity<RetornoRest> retorno = null;
 		try {

@@ -63,9 +63,9 @@ public class Usuario implements Serializable, DatabaseEntity {
 	@Column(name = "CD_USUARIO")
 	private Integer codigo;
 	@Column(name = "TX_SENHA")
-	private String senha;
+	public String senha;
 	@Column(name = "TX_EMAIL")
-	private String email;
+	public String email;
 	@Column(name = "BO_ATIVO")
 	private Boolean ativo;
 	@Column(name = "BO_FACEBOOK")

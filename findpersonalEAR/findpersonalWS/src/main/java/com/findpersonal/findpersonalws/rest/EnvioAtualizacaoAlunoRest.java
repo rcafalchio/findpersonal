@@ -7,10 +7,10 @@ import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class EnvioAtualizacaoAlunoRest extends CadastroAlunoRest {
+public class EnvioAtualizacaoAlunoRest extends EnvioRest {
 
 	@JsonProperty("CD")
-	@NotNull(message = "O parametro não pode ser nulo")
+	@NotNull
 	private Integer codigo;
 
 	@JsonProperty("DTN")
@@ -22,6 +22,18 @@ public class EnvioAtualizacaoAlunoRest extends CadastroAlunoRest {
 
 	@JsonProperty("AT")
 	private Boolean ativo;
+
+	@JsonProperty("PW")
+	private String senha;
+
+	@JsonProperty("MAIL")
+	private String email;
+
+	@JsonProperty("NM")
+	private String nome;
+
+	@JsonProperty("CFB")
+	private Integer codigoFacebook;
 
 	/**
 	 * @return the codigo
@@ -74,6 +86,58 @@ public class EnvioAtualizacaoAlunoRest extends CadastroAlunoRest {
 	 */
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
+	}
+	/**
+	 * @return the senha
+	 */
+	public String getSenha() {
+		return senha;
+	}
+	/**
+	 * @param senha
+	 *            the senha to set
+	 */
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+	/**
+	 * @param email
+	 *            the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	/**
+	 * @return the nome
+	 */
+	public String getNome() {
+		return nome;
+	}
+	/**
+	 * @param nome
+	 *            the nome to set
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	/**
+	 * @return the codigoFacebook
+	 */
+	public Integer getCodigoFacebook() {
+		return codigoFacebook;
+	}
+	/**
+	 * @param codigoFacebook
+	 *            the codigoFacebook to set
+	 */
+	public void setCodigoFacebook(Integer codigoFacebook) {
+		this.codigoFacebook = codigoFacebook;
 	}
 
 }
