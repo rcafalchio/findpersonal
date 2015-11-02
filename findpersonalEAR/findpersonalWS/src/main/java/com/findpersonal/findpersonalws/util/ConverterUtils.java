@@ -93,6 +93,8 @@ public final class ConverterUtils {
 		if (envioRest instanceof EnvioAtualizacaoPersonalRest) {
 			EnvioAtualizacaoPersonalRest atulizacaoPersonalRest = (EnvioAtualizacaoPersonalRest) envioRest;
 			personal.setNome(atulizacaoPersonalRest.getNome());
+			personal.setCpf(atulizacaoPersonalRest.getCpf());
+			personal.setCref(atulizacaoPersonalRest.getCref());
 			personal.setUsuario(new Usuario());
 			personal.getUsuario().setEmail(atulizacaoPersonalRest.getEmail());
 			personal.getUsuario().setSenha(atulizacaoPersonalRest.getSenha());
@@ -113,6 +115,8 @@ public final class ConverterUtils {
 		} else {
 			CadastroPersonalRest cadastroPersonalRest = (CadastroPersonalRest) envioRest;
 			personal.setNome(cadastroPersonalRest.getNome());
+			personal.setCpf(cadastroPersonalRest.getCpf());
+			personal.setCref(cadastroPersonalRest.getCref());
 			personal.setUsuario(new Usuario());
 			personal.getUsuario().setEmail(cadastroPersonalRest.getEmail());
 			personal.getUsuario().setSenha(cadastroPersonalRest.getSenha());

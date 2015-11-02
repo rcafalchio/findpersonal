@@ -19,7 +19,7 @@ public class AlunoAtualizacaoCharger extends ChargeManager {
 		final Aluno aluno = (Aluno) entity;
 
 		if (aluno.getUsuario().getEmail() != null && !aluno.getUsuario().getEmail().isEmpty()) {
-			usuarioEmail = usuarioRepository.findByEmail(aluno.getUsuario().getEmail());
+			usuarioEmail = usuarioRepository.findByEmail(aluno.getUsuario().getEmail()).get();
 		}
 
 		if (aluno.getCodigo() != null) {

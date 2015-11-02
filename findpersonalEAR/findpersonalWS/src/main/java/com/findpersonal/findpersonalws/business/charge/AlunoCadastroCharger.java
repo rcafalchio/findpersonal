@@ -18,7 +18,7 @@ public class AlunoCadastroCharger extends ChargeManager {
 		final Aluno aluno = (Aluno) entity;
 
 		if (aluno.getUsuario().getEmail() != null && !aluno.getUsuario().getEmail().isEmpty()) {
-			usuarioEmail = usuarioRepository.findByEmail(aluno.getUsuario().getEmail());
+			usuarioEmail = usuarioRepository.findByEmail(aluno.getUsuario().getEmail()).get();
 
 		}
 		return new AlunoDBInformation.AlunoDBBuilder().usuarioEmail(usuarioEmail).build();

@@ -1,23 +1,27 @@
 package com.findpersonal.findpersonaljpa.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 @Entity
 @Table(name = "TB_USUARIO")
-@NamedQueries(value = {@NamedQuery(name = "findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email")})
 public class Usuario implements Serializable, DatabaseEntity {
 
 	/**
@@ -50,6 +54,21 @@ public class Usuario implements Serializable, DatabaseEntity {
 		this.codigoFacebook = codigoFacebook;
 	}
 
+	public Usuario(Usuario user) {
+		this.aluno = user.aluno;
+		this.personal = user.personal;
+		this.senha = user.senha;
+		this.email = user.email;
+		this.ativo = user.ativo;
+		this.loginFacebook = user.loginFacebook;
+		this.codigoFacebook = user.codigoFacebook;
+	}
+
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "TB_USUARIO_HAS_TB_PAPEL_SISTEMA", joinColumns = { @JoinColumn(name = "tb_usuario_CD_USUARIO") }, inverseJoinColumns = { @JoinColumn(name = "tb_papel_sistema_CD_PAPEL_SISTEMA") })
+	private Set<PapelSistema> papeis = new HashSet<PapelSistema>();
+	
 	@JsonIgnore
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private Aluno aluno;
@@ -170,6 +189,13 @@ public class Usuario implements Serializable, DatabaseEntity {
 
 	public void setCodigoFacebook(Integer codigoFacebook) {
 		this.codigoFacebook = codigoFacebook;
+	}
+
+	/**
+	 * @return the papeis
+	 */
+	public Set<PapelSistema> getPapeis() {
+		return papeis;
 	}
 
 }

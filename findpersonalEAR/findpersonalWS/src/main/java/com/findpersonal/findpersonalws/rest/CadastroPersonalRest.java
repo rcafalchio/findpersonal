@@ -21,6 +21,13 @@ public class CadastroPersonalRest extends EnvioRest {
 	@JsonProperty("CFB")
 	private Integer codigoFacebook;
 
+	@JsonProperty("CPF")
+	@NotNull
+	private Long cpf;
+
+	@JsonProperty("CREF")
+	private String cref;
+
 	/**
 	 * @return the senha
 	 */
@@ -79,6 +86,35 @@ public class CadastroPersonalRest extends EnvioRest {
 	 */
 	public void setCodigoFacebook(Integer codigoFacebook) {
 		this.codigoFacebook = codigoFacebook;
+	}
+
+	/**
+	 * @return the cpf
+	 */
+	public Long getCpf() {
+		return cpf;
+	}
+
+	/**
+	 * @param cpf
+	 *            the cpf to set
+	 */
+	public void setCpf(Long cpf) {
+		this.cpf = cpf;
+	}
+
+	/**
+	 * @return the cref
+	 */
+	public String getCref() {
+		return cref;
+	}
+
+	/**
+	 * @param cref the cref to set
+	 */
+	public void setCref(String cref) {
+		this.cref = cref;
 	}
 
 }

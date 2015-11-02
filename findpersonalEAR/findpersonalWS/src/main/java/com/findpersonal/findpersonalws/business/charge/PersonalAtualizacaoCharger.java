@@ -20,7 +20,7 @@ public class PersonalAtualizacaoCharger extends ChargeManager {
 		final Personal personal = (Personal) entity;
 
 		if (personal.getUsuario().getEmail() != null && !personal.getUsuario().getEmail().isEmpty()) {
-			usuarioEmail = usuarioRepository.findByEmail(personal.getUsuario().getEmail());
+			usuarioEmail = usuarioRepository.findByEmail(personal.getUsuario().getEmail()).get();
 		}
 
 		if (personal.getCodigo() != null) {

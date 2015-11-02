@@ -35,6 +35,9 @@ public class EnvioAtualizacaoAlunoRest extends EnvioRest {
 	@JsonProperty("CFB")
 	private Integer codigoFacebook;
 
+	@JsonProperty("CPF")
+	private Long cpf;
+	
 	/**
 	 * @return the codigo
 	 */
@@ -138,6 +141,18 @@ public class EnvioAtualizacaoAlunoRest extends EnvioRest {
 	 */
 	public void setCodigoFacebook(Integer codigoFacebook) {
 		this.codigoFacebook = codigoFacebook;
+	}
+	/**
+	 * @return the cpf
+	 */
+	public Long getCpf() {
+		return cpf;
+	}
+	/**
+	 * @param cpf the cpf to set
+	 */
+	public void setCpf(Long cpf) {
+		this.cpf = cpf;
 	}
 
 }

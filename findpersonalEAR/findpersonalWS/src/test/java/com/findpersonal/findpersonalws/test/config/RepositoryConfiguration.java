@@ -1,4 +1,4 @@
-package com.test.config;
+package com.findpersonal.findpersonalws.test.config;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.orm.jpa.EntityScan;

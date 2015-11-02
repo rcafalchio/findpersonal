@@ -1,4 +1,4 @@
-package com.findpersonal.findpersonalws.config;
+package com.findpersonal.findpersonalws.config.repository;
 
 import javax.sql.DataSource;
 
@@ -41,9 +41,9 @@ public class RepositoryConfiguration {
 		
 //		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 //	    dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-//	    dataSource.setUrl("jdbc:mysql://findpersonaldb.cgtaudjjbmah.us-east-1.rds.amazonaws.com:3306/findpersonaldb");
-//	    dataSource.setUsername("cafalchio");
-//	    dataSource.setPassword("Rick2015");
+//	    dataSource.setUrl("jdbc:mysql://localhost:3306/findpersonaldb");
+//	    dataSource.setUsername("root");
+//	    dataSource.setPassword("root");
 //	    Properties properties = new Properties();
 //	    properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
 //	    dataSource.setConnectionProperties(properties);

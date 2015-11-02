@@ -32,8 +32,14 @@ public class EnvioAtualizacaoPersonalRest extends EnvioRest {
 	@JsonProperty("NM")
 	private String nome;
 
+	@JsonProperty("CPF")
+	private Long cpf;
+
 	@JsonProperty("CFB")
 	private Integer codigoFacebook;
+	
+	@JsonProperty("CREF")
+	private String cref;
 
 	/**
 	 * @return the codigo
@@ -134,6 +140,31 @@ public class EnvioAtualizacaoPersonalRest extends EnvioRest {
 	 */
 	public void setCodigoFacebook(Integer codigoFacebook) {
 		this.codigoFacebook = codigoFacebook;
+	}
+	/**
+	 * @return the cpf
+	 */
+	public Long getCpf() {
+		return cpf;
+	}
+	/**
+	 * @param cpf the cpf to set
+	 */
+	public void setCpf(Long cpf) {
+		this.cpf = cpf;
+	}
+	/**
+	 * @return the cref
+	 */
+	public String getCref() {
+		return cref;
+	}
+	/**
+	 * @param cref
+	 *            the cref to set
+	 */
+	public void setCref(String cref) {
+		this.cref = cref;
 	}
 
 }
