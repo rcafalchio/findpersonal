@@ -1,4 +1,4 @@
-package com.findpersonal.findpersonalws.rest;
+package com.findpersonal.findpersonalws.rest.dto;
 
 import java.util.Date;
 
@@ -7,7 +7,7 @@ import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class EnvioAtualizacaoPersonalRest extends EnvioRest {
+public class EnvioAtualizacaoAlunoJSON extends EnvioJSON {
 
 	@JsonProperty("CD")
 	@NotNull
@@ -22,7 +22,7 @@ public class EnvioAtualizacaoPersonalRest extends EnvioRest {
 
 	@JsonProperty("AT")
 	private Boolean ativo;
-	
+
 	@JsonProperty("PW")
 	private String senha;
 
@@ -31,29 +31,10 @@ public class EnvioAtualizacaoPersonalRest extends EnvioRest {
 
 	@JsonProperty("NM")
 	private String nome;
-
+	
 	@JsonProperty("CPF")
 	private Long cpf;
-
-	@JsonProperty("CFB")
-	private Integer codigoFacebook;
 	
-	@JsonProperty("CREF")
-	private String cref;
-
-	/**
-	 * @return the codigo
-	 */
-	public Integer getCodigo() {
-		return codigo;
-	}
-	/**
-	 * @param codigo
-	 *            the codigo to set
-	 */
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
-	}
 	/**
 	 * @return the dataNascimento
 	 */
@@ -100,7 +81,8 @@ public class EnvioAtualizacaoPersonalRest extends EnvioRest {
 		return senha;
 	}
 	/**
-	 * @param senha the senha to set
+	 * @param senha
+	 *            the senha to set
 	 */
 	public void setSenha(String senha) {
 		this.senha = senha;
@@ -112,7 +94,8 @@ public class EnvioAtualizacaoPersonalRest extends EnvioRest {
 		return email;
 	}
 	/**
-	 * @param email the email to set
+	 * @param email
+	 *            the email to set
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -124,23 +107,13 @@ public class EnvioAtualizacaoPersonalRest extends EnvioRest {
 		return nome;
 	}
 	/**
-	 * @param nome the nome to set
+	 * @param nome
+	 *            the nome to set
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	/**
-	 * @return the codigoFacebook
-	 */
-	public Integer getCodigoFacebook() {
-		return codigoFacebook;
-	}
-	/**
-	 * @param codigoFacebook the codigoFacebook to set
-	 */
-	public void setCodigoFacebook(Integer codigoFacebook) {
-		this.codigoFacebook = codigoFacebook;
-	}
+	
 	/**
 	 * @return the cpf
 	 */
@@ -154,17 +127,16 @@ public class EnvioAtualizacaoPersonalRest extends EnvioRest {
 		this.cpf = cpf;
 	}
 	/**
-	 * @return the cref
+	 * @return the codigo
 	 */
-	public String getCref() {
-		return cref;
+	public Integer getCodigo() {
+		return codigo;
 	}
 	/**
-	 * @param cref
-	 *            the cref to set
+	 * @param codigo the codigo to set
 	 */
-	public void setCref(String cref) {
-		this.cref = cref;
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
 	}
 
 }

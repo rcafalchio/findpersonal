@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.findpersonal.findpersonalutil.constant.ValidationEnum;
 import com.findpersonal.findpersonalutil.util.MessageUtils;
 import com.findpersonal.findpersonalutil.vo.ErroNegocio;
-import com.findpersonal.findpersonalws.rest.RetornoRest.RetornoRestEnum;
+import com.findpersonal.findpersonalws.rest.dto.RetornoCadastroJSON;
+import com.findpersonal.findpersonalws.rest.dto.RetornoJSON;
+import com.findpersonal.findpersonalws.rest.dto.RetornoJSON.RetornoRestEnum;
 
 @ControllerAdvice
 public class ControllerValidationHandler {
@@ -22,8 +24,8 @@ public class ControllerValidationHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
-	public RetornoRest processValidationError(MethodArgumentNotValidException ex) {
-		RetornoRest retornoRest = new RetornoCadastroRest(RetornoRestEnum.ERRO_NEGOCIO);
+	public RetornoJSON processValidationError(MethodArgumentNotValidException ex) {
+		RetornoJSON retornoRest = new RetornoCadastroJSON(RetornoRestEnum.ERRO_NEGOCIO);
 		BindingResult result = ex.getBindingResult();
 		List<FieldError> errors = result.getFieldErrors();
 		if (errors != null && !errors.isEmpty()) {
@@ -33,9 +35,9 @@ public class ControllerValidationHandler {
 
 	}
 
-	private RetornoRest processFieldError(List<FieldError> errors) {
+	private RetornoJSON processFieldError(List<FieldError> errors) {
 
-		RetornoRest retornoRest = new RetornoCadastroRest(RetornoRestEnum.ERRO_NEGOCIO);
+		RetornoJSON retornoRest = new RetornoCadastroJSON(RetornoRestEnum.ERRO_NEGOCIO);
 		StringBuffer buffer = new StringBuffer(MessageUtils.getBundle()
 				.getString(ValidationEnum.ERRO_NOS_PARAMETROS_ENVIO.getPropertiesMensage()).concat(";"));
 		for (FieldError fieldError : errors) {

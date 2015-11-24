@@ -1,7 +1,5 @@
 package com.findpersonal.findpersonalws.business.charge;
 
-import com.findpersonal.findpersonaljpa.entity.DatabaseEntity;
-
 public class AlunoCharger100 extends ChargeDecorator {
 
 	public AlunoCharger100(ChargeManager chargeManager) {
@@ -9,8 +7,8 @@ public class AlunoCharger100 extends ChargeDecorator {
 	}
 
 	@Override
-	public DatabaseInformation obterCarga(DatabaseEntity entity, DatabaseInformation databaseInformation) {
-		DatabaseInformation dbInformation = super.chargeManager.obterCarga(entity, databaseInformation);
+	public DatabaseInformation obterCarga(ChargeInputData chargeInputData) {
+		DatabaseInformation dbInformation = super.chargeManager.obterCarga(chargeInputData);
 		// Se necessário adicionar novas consultas aqui
 		return dbInformation;
 	}

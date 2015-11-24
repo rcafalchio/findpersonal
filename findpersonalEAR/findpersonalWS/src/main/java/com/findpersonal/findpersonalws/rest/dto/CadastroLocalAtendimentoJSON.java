@@ -1,6 +1,6 @@
-package com.findpersonal.findpersonalws.rest;
+package com.findpersonal.findpersonalws.rest.dto;
 
-public class CadastroLocalAtendimentoRest extends EnvioRest {
+public class CadastroLocalAtendimentoJSON extends EnvioJSON {
 
 	private Integer codigoCidade;
 	private Integer codigoEstado;

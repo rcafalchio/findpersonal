@@ -1,4 +1,4 @@
-package com.findpersonal.findpersonalws.rest;
+package com.findpersonal.findpersonalws.rest.dto;
 
 import java.util.List;
 
@@ -11,16 +11,20 @@ import com.findpersonal.findpersonalutil.vo.ErroNegocio;
  * @author Ricardo
  * @since 23 de ago de 2015
  */
-public class RetornoCadastroRest extends RetornoRest {
+public class RetornoCadastroJSON extends RetornoJSON {
 
+	public RetornoCadastroJSON() {
+		super(RetornoRestEnum.SUCESSO);
+	}
+	
 	@JsonProperty("CC")
 	private Integer codigoCadastro;
 
-	public RetornoCadastroRest(RetornoRestEnum retornoRestEnum, List<ErroNegocio> listaErrosNegocio) {
+	public RetornoCadastroJSON(RetornoRestEnum retornoRestEnum, List<ErroNegocio> listaErrosNegocio) {
 		super(retornoRestEnum, listaErrosNegocio);
 	}
 
-	public RetornoCadastroRest(RetornoRestEnum retornoRestEnum) {
+	public RetornoCadastroJSON(RetornoRestEnum retornoRestEnum) {
 		super(retornoRestEnum);
 	}
 
