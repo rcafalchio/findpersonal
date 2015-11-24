@@ -6,15 +6,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.findpersonal.findpersonaljpa.repository.UsuarioRepository;
-import com.test.config.Application;
+import com.test.config.RepositoryConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@WebIntegrationTest
+@SpringApplicationConfiguration(classes = RepositoryConfiguration.class)
 public class AlunoRepositoryTest {
 
 	private static final Logger LOGGER = LogManager.getLogger(AlunoRepositoryTest.class);

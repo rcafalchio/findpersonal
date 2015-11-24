@@ -1,4 +1,4 @@
-package com.findpersonal.findpersonalws.rest;
+package com.findpersonal.findpersonalws.rest.dto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.findpersonal.findpersonalutil.vo.ErroNegocio;
 
-public class RetornoRest {
+public class RetornoJSON {
 
 	@JsonProperty("CR")
 	private int codigoRetorno = 0;
@@ -15,12 +15,12 @@ public class RetornoRest {
 	@JsonProperty("LEN")
 	private List<ErroNegocio> listaErrosNegocio;
 
-	public RetornoRest(RetornoRestEnum retornoRestEnum) {
+	public RetornoJSON(RetornoRestEnum retornoRestEnum) {
 		this.codigoRetorno = retornoRestEnum.getCodigoRetorno();
 		this.descricaoRetorno = retornoRestEnum.name();
 	}
 
-	public RetornoRest(RetornoRestEnum retornoRestEnum, List<ErroNegocio> listaErrosNegocio) {
+	public RetornoJSON(RetornoRestEnum retornoRestEnum, List<ErroNegocio> listaErrosNegocio) {
 		this.listaErrosNegocio = listaErrosNegocio;
 		this.codigoRetorno = retornoRestEnum.getCodigoRetorno();
 		this.descricaoRetorno = retornoRestEnum.name();

@@ -9,6 +9,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.findpersonal.findpersonaljpa.entity.Cidade;
 import com.findpersonal.findpersonaljpa.repository.CidadeRepository;
 import com.test.config.Application;
 
@@ -25,7 +26,9 @@ public class CidadeRepositoryTest {
 	@Test
 	public void cadastrarCidade() throws Exception {
 		LOGGER.info("TESTE INICIO JPA CIDADE");
-		cidadeRepository.findAll();
+		Cidade entity = new Cidade();
+		entity.setNome("TESTE JPA");
+		cidadeRepository.save(entity);
 		LOGGER.info("TESTE FIM JPA CIDADE");
 	}
 

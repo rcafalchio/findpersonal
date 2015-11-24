@@ -1,4 +1,4 @@
-package com.findpersonal.findpersonalws.rest;
+package com.findpersonal.findpersonalws.rest.dto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,15 +11,15 @@ import com.findpersonal.findpersonalutil.vo.ErroNegocio;
  * @author Ricardo
  * @since 23 de ago de 2015
  */
-public class RetornoListaRest<T> extends RetornoRest {
+public class RetornoListaJSON<T> extends RetornoJSON {
 
 	private List<T> lista = new ArrayList<T>();
 
-	public RetornoListaRest(RetornoRestEnum retornoRestEnum, List<ErroNegocio> listaErros) {
+	public RetornoListaJSON(RetornoRestEnum retornoRestEnum, List<ErroNegocio> listaErros) {
 		super(retornoRestEnum, listaErros);
 	}
 
-	public RetornoListaRest(RetornoRestEnum retornoRestEnum) {
+	public RetornoListaJSON(RetornoRestEnum retornoRestEnum) {
 		super(retornoRestEnum);
 	}
 

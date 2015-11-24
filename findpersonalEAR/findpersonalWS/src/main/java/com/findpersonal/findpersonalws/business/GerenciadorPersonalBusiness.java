@@ -11,15 +11,18 @@ import com.findpersonal.findpersonaljpa.entity.Usuario;
 import com.findpersonal.findpersonaljpa.repository.PersonalRepository;
 import com.findpersonal.findpersonaljpa.repository.UsuarioRepository;
 import com.findpersonal.findpersonalutil.constant.RestServicesEnum;
+import com.findpersonal.findpersonalws.business.charge.ChargeInputData;
 import com.findpersonal.findpersonalws.business.charge.ChargeManager;
 import com.findpersonal.findpersonalws.business.charge.ChargeManagerFactory;
 import com.findpersonal.findpersonalws.business.charge.DatabaseInformation;
+import com.findpersonal.findpersonalws.business.charge.InputDataPersonal;
 import com.findpersonal.findpersonalws.business.rules.RulesManager;
 import com.findpersonal.findpersonalws.business.rules.RulesManagerFactory;
 import com.findpersonal.findpersonalws.exception.BusinessException;
 import com.findpersonal.findpersonalws.exception.ExpectedApplicationException;
-import com.findpersonal.findpersonalws.rest.CadastroPersonalRest;
-import com.findpersonal.findpersonalws.rest.EnvioAtualizacaoPersonalRest;
+import com.findpersonal.findpersonalws.rest.dto.CadastroPersonalJSON;
+import com.findpersonal.findpersonalws.rest.dto.EnvioAtualizacaoPersonalJSON;
+import com.findpersonal.findpersonalws.rest.dto.FiltroPersonalJSON;
 import com.findpersonal.findpersonalws.util.ConverterUtils;
 
 /**
@@ -40,13 +43,13 @@ public class GerenciadorPersonalBusiness {
 	/**
 	 * Cadastrar um novo personal
 	 * 
-	 * @param CadastroPersonalRest
+	 * @param CadastroPersonalJSON
 	 *            Dados do personal
 	 * @return Integer codigo Personal
 	 * @throws BusinessException
 	 * @throws ExpectedApplicationException
 	 */
-	public Integer cadastrarPersonal(final CadastroPersonalRest cadastroPersonalRest)
+	public Integer cadastrarPersonal(final CadastroPersonalJSON cadastroPersonalRest)
 			throws BusinessException, ExpectedApplicationException {
 
 		// Converte para entity
@@ -55,7 +58,8 @@ public class GerenciadorPersonalBusiness {
 		// Realiza a carga das informações do serviço de Aluno;
 		final ChargeManager chargeManager = ChargeManagerFactory.getInstance()
 				.obterChargeManager(cadastroPersonalRest.getApplicationVersion(), RestServicesEnum.CADASTRO_PERSONAL);
-		final DatabaseInformation databaseInformation = chargeManager.obterCarga(personal, null);
+		final ChargeInputData chargeInputData = new InputDataPersonal(personal);
+		final DatabaseInformation databaseInformation = chargeManager.obterCarga(chargeInputData);
 		// Realiza as validações dos dados
 		final RulesManager rulesManager = RulesManagerFactory.getInstance()
 				.obterRulesManager(cadastroPersonalRest.getApplicationVersion(), RestServicesEnum.CADASTRO_PERSONAL);
@@ -94,13 +98,14 @@ public class GerenciadorPersonalBusiness {
 	 * @throws ExpectedApplicationException
 	 *             exception esperada
 	 */
-	public Integer atualizarPersonal(EnvioAtualizacaoPersonalRest atulizacaoPersonalRest)
+	public Integer atualizarPersonal(EnvioAtualizacaoPersonalJSON atulizacaoPersonalRest)
 			throws BusinessException, ExpectedApplicationException {
 		// Converte para entity
 		final Personal personal = ConverterUtils.convertToPersonal(atulizacaoPersonalRest);
 		final ChargeManager chargeManager = ChargeManagerFactory.getInstance().obterChargeManager(
 				atulizacaoPersonalRest.getApplicationVersion(), RestServicesEnum.ATUALIZAR_CADASTRO_PERSONAL);
-		final DatabaseInformation databaseInformation = chargeManager.obterCarga(personal, null);
+		final ChargeInputData chargeInputData = new InputDataPersonal(personal);
+		final DatabaseInformation databaseInformation = chargeManager.obterCarga(chargeInputData);
 		// Realiza as validações dos dados
 		final RulesManager rulesManager = RulesManagerFactory.getInstance().obterRulesManager(
 				atulizacaoPersonalRest.getApplicationVersion(), RestServicesEnum.ATUALIZAR_CADASTRO_PERSONAL);
@@ -116,5 +121,37 @@ public class GerenciadorPersonalBusiness {
 		// Persiste o aluno em base
 		return usuarioRepository.save(usuarioDatabase).getPersonal().getCodigo();
 
+	}
+
+	/**
+	 * Busca todos os personais da base
+	 * 
+	 * @return List<Personal>
+	 */
+	public List<Personal> buscarPersonais() {
+		return personalRepository.findAll();
+	}
+
+	/**
+	 * Busca uma lista de personais com os filtros informados.
+	 * 
+	 * @param filtroPersonalJSON
+	 * @return List<Personal>
+	 * @throws ExpectedApplicationException
+	 * @throws BusinessException
+	 */
+	public List<Personal> buscarPersonal(final FiltroPersonalJSON filtroPersonalJSON)
+			throws BusinessException, ExpectedApplicationException {
+		// Realiza a carga das informações do serviço de Aluno;
+		final ChargeManager chargeManager = ChargeManagerFactory.getInstance()
+				.obterChargeManager(filtroPersonalJSON.getApplicationVersion(), RestServicesEnum.BUSCAR_PERSONAL);
+
+		final ChargeInputData chargeInputData = new InputDataPersonal(filtroPersonalJSON);
+		final DatabaseInformation databaseInformation = chargeManager.obterCarga(chargeInputData);
+		// Realiza as validações dos dados
+		// final RulesManager rulesManager = RulesManagerFactory.getInstance()
+		// .obterRulesManager(cadastroPersonalRest.getApplicationVersion(), RestServicesEnum.BUSCAR_PERSONAL);
+		// rulesManager.executarRegras(databaseInformation, personal);
+		return null;
 	}
 }

@@ -40,7 +40,6 @@ public class Usuario implements Serializable, DatabaseEntity {
 		this.email = email;
 		this.ativo = ativo;
 		this.loginFacebook = loginFacebook;
-		this.codigoFacebook = codigoFacebook;
 	}
 
 	public Usuario(Personal personal, String login, String senha, String email, Boolean ativo, Boolean loginFacebook,
@@ -51,7 +50,6 @@ public class Usuario implements Serializable, DatabaseEntity {
 		this.email = email;
 		this.ativo = ativo;
 		this.loginFacebook = loginFacebook;
-		this.codigoFacebook = codigoFacebook;
 	}
 
 	public Usuario(Usuario user) {
@@ -61,7 +59,6 @@ public class Usuario implements Serializable, DatabaseEntity {
 		this.email = user.email;
 		this.ativo = user.ativo;
 		this.loginFacebook = user.loginFacebook;
-		this.codigoFacebook = user.codigoFacebook;
 	}
 
 	@JsonIgnore
@@ -72,6 +69,10 @@ public class Usuario implements Serializable, DatabaseEntity {
 	@JsonIgnore
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private Aluno aluno;
+	
+	@JsonIgnore
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+	private Facebook facebook;
 
 	@JsonIgnore
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
@@ -89,8 +90,6 @@ public class Usuario implements Serializable, DatabaseEntity {
 	private Boolean ativo;
 	@Column(name = "BO_FACEBOOK")
 	private Boolean loginFacebook;
-	@Column(name = "CD_FACEBOOK")
-	private Integer codigoFacebook;
 
 	/**
 	 * @return the aluno
@@ -183,19 +182,25 @@ public class Usuario implements Serializable, DatabaseEntity {
 		this.codigo = codigo;
 	}
 
-	public Integer getCodigoFacebook() {
-		return codigoFacebook;
-	}
-
-	public void setCodigoFacebook(Integer codigoFacebook) {
-		this.codigoFacebook = codigoFacebook;
-	}
-
 	/**
 	 * @return the papeis
 	 */
 	public Set<PapelSistema> getPapeis() {
 		return papeis;
+	}
+
+	/**
+	 * @return the facebook
+	 */
+	public Facebook getFacebook() {
+		return facebook;
+	}
+
+	/**
+	 * @param facebook the facebook to set
+	 */
+	public void setFacebook(Facebook facebook) {
+		this.facebook = facebook;
 	}
 
 }

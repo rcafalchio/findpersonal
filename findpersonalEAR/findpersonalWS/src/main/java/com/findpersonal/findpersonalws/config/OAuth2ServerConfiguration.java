@@ -41,25 +41,23 @@ public class OAuth2ServerConfiguration {
 
 	@Configuration
 	@EnableResourceServer
-	protected static class ResourceServerConfiguration extends
-			ResourceServerConfigurerAdapter {
+	protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
 		@Override
 		public void configure(ResourceServerSecurityConfigurer resources) {
 			// @formatter:off
-			resources
-				.resourceId(RESOURCE_ID);
+			resources.resourceId(RESOURCE_ID);
 			// @formatter:on
 		}
 
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
-			http
-				.authorizeRequests()
-					.antMatchers("/Aluno/**").hasRole("ADMIN")
-					.antMatchers("/Personal/**").authenticated()
-					.antMatchers("/greeting/**").authenticated();
+			http.authorizeRequests().
+			antMatchers("/Aluno/Cadastro").permitAll().
+			antMatchers("/Personal/Cadastro").permitAll().
+			antMatchers("/Personal/**").authenticated().
+			antMatchers("/Aluno/**").authenticated();
 			// @formatter:on
 		}
 
@@ -67,8 +65,7 @@ public class OAuth2ServerConfiguration {
 
 	@Configuration
 	@EnableAuthorizationServer
-	protected static class AuthorizationServerConfiguration extends
-			AuthorizationServerConfigurerAdapter {
+	protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
 		private TokenStore tokenStore = new InMemoryTokenStore();
 
@@ -80,27 +77,18 @@ public class OAuth2ServerConfiguration {
 		private CustomUserDetailsService userDetailsService;
 
 		@Override
-		public void configure(AuthorizationServerEndpointsConfigurer endpoints)
-				throws Exception {
+		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 			// @formatter:off
-			endpoints
-				.tokenStore(this.tokenStore)
-				.authenticationManager(this.authenticationManager)
-				.userDetailsService(userDetailsService);
+			endpoints.tokenStore(this.tokenStore).authenticationManager(this.authenticationManager)
+					.userDetailsService(userDetailsService);
 			// @formatter:on
 		}
 
 		@Override
 		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 			// @formatter:off
-			clients
-				.inMemory()
-					.withClient("clientapp")
-						.authorizedGrantTypes("password", "refresh_token")
-						.authorities("USER")
-						.scopes("read", "write")
-						.resourceIds(RESOURCE_ID)
-						.secret("123456");
+			clients.inMemory().withClient("clientapp").authorizedGrantTypes("password", "refresh_token")
+					.authorities("USER").scopes("read", "write").resourceIds(RESOURCE_ID).secret("123456");
 			// @formatter:on
 		}
 

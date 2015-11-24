@@ -7,7 +7,7 @@ import java.util.List;
 public class BusinessException extends FindPernsonalApplicationException {
 
 	private List listaValidacoes;
-
+	
 	/**
 	 * 
 	 */
@@ -32,4 +32,10 @@ public class BusinessException extends FindPernsonalApplicationException {
 		getListaValidacoes().add(object);
 	}
 
+	public String getStringErrors() {
+		StringBuffer buffer = new StringBuffer();
+		listaValidacoes.forEach((a)-> buffer.append(a).append("\n"));
+		return buffer.toString();
+	}
+	
 }

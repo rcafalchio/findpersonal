@@ -76,7 +76,7 @@ public class ChargerCreator {
 	public ChargeManager createAlunoChargeManager(ApplicationVersionEnum applicationVersionEnum)
 			throws ExpectedApplicationException {
 		final List<ApplicationVersionEnum> listEnum = applicationVersionEnum.recuperarOldVersions();
-		return instanciarChargeManager(new AlunoCadastroCharger(alunoRepository, usuarioRepository), listEnum,
+		return instanciarChargeManager(new AlunoCadastroCharger(), listEnum,
 				"AlunoCharger");
 	}
 
@@ -90,7 +90,7 @@ public class ChargerCreator {
 	public ChargeManager createAlunoAtualizacaoChargeManager(ApplicationVersionEnum applicationVersionEnum)
 			throws ExpectedApplicationException {
 		final List<ApplicationVersionEnum> listEnum = applicationVersionEnum.recuperarOldVersions();
-		return instanciarChargeManager(new AlunoAtualizacaoCharger(alunoRepository, usuarioRepository), listEnum,
+		return instanciarChargeManager(new AlunoAtualizacaoCharger(), listEnum,
 				"AlunoAtualizacaoCharger");
 	}
 
@@ -104,7 +104,7 @@ public class ChargerCreator {
 	public ChargeManager createPersonalAtualizacaoChargeManager(ApplicationVersionEnum applicationVersionEnum)
 			throws ExpectedApplicationException {
 		final List<ApplicationVersionEnum> listEnum = applicationVersionEnum.recuperarOldVersions();
-		return instanciarChargeManager(new PersonalAtualizacaoCharger(personalRepository, usuarioRepository), listEnum,
+		return instanciarChargeManager(new PersonalAtualizacaoCharger(), listEnum,
 				"PersonalAtualizacaoCharger");
 	}
 
@@ -117,9 +117,8 @@ public class ChargerCreator {
 	 */
 	public ChargeManager createPersonalChargeManager(ApplicationVersionEnum applicationVersionEnum)
 			throws ExpectedApplicationException {
-
 		final List<ApplicationVersionEnum> listEnum = applicationVersionEnum.recuperarOldVersions();
-		return instanciarChargeManager(new PersonalCadastroCharger(personalRepository, usuarioRepository), listEnum,
+		return instanciarChargeManager(new PersonalCadastroCharger(), listEnum,
 				"PersonalCharger");
 	}
 

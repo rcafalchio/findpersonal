@@ -1,10 +1,10 @@
-package com.findpersonal.findpersonalws.rest;
+package com.findpersonal.findpersonalws.rest.dto;
 
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CadastroAlunoRest extends EnvioRest {
+public class CadastroPersonalJSON extends EnvioJSON {
 
 	@JsonProperty("PW")
 	@NotNull
@@ -18,11 +18,15 @@ public class CadastroAlunoRest extends EnvioRest {
 	@NotNull
 	private String nome;
 
-	@JsonProperty("CFB")
-	private Integer codigoFacebook;
-
 	@JsonProperty("CPF")
+	@NotNull
 	private Long cpf;
+
+	@JsonProperty("CREF")
+	private String cref;
+
+	@JsonProperty("CFB")
+	private CadastroFacebookJSON cadastroFacebookRest;
 
 	/**
 	 * @return the senha
@@ -70,21 +74,6 @@ public class CadastroAlunoRest extends EnvioRest {
 	}
 
 	/**
-	 * @return the codigoFacebook
-	 */
-	public Integer getCodigoFacebook() {
-		return codigoFacebook;
-	}
-
-	/**
-	 * @param codigoFacebook
-	 *            the codigoFacebook to set
-	 */
-	public void setCodigoFacebook(Integer codigoFacebook) {
-		this.codigoFacebook = codigoFacebook;
-	}
-
-	/**
 	 * @return the cpf
 	 */
 	public Long getCpf() {
@@ -97,6 +86,36 @@ public class CadastroAlunoRest extends EnvioRest {
 	 */
 	public void setCpf(Long cpf) {
 		this.cpf = cpf;
+	}
+
+	/**
+	 * @return the cref
+	 */
+	public String getCref() {
+		return cref;
+	}
+
+	/**
+	 * @param cref
+	 *            the cref to set
+	 */
+	public void setCref(String cref) {
+		this.cref = cref;
+	}
+
+	/**
+	 * @return the cadastroFacebookRest
+	 */
+	public CadastroFacebookJSON getCadastroFacebookRest() {
+		return cadastroFacebookRest;
+	}
+
+	/**
+	 * @param cadastroFacebookRest
+	 *            the cadastroFacebookRest to set
+	 */
+	public void setCadastroFacebookRest(CadastroFacebookJSON cadastroFacebookRest) {
+		this.cadastroFacebookRest = cadastroFacebookRest;
 	}
 
 }

@@ -1,30 +1,22 @@
 package com.findpersonal.findpersonalws.business.charge;
 
-import com.findpersonal.findpersonaljpa.entity.DatabaseEntity;
-import com.findpersonal.findpersonaljpa.repository.AlunoRepository;
-import com.findpersonal.findpersonaljpa.repository.PersonalRepository;
-import com.findpersonal.findpersonaljpa.repository.UsuarioRepository;
+import com.findpersonal.findpersonalws.util.SpringContext;
 
 public abstract class ChargeManager {
 
+	ChargeService chargeService;
+
 	public ChargeManager() {
+		this.chargeService = (ChargeService) SpringContext.getApplicationContext().getBean("chargeService");
 	}
 
-	protected AlunoRepository alunoRepository;
-	protected UsuarioRepository usuarioRepository;
-	protected PersonalRepository personalRepository;
+	public abstract DatabaseInformation obterCarga(ChargeInputData dataInput);
 
-	public ChargeManager(AlunoRepository alunoRepository, UsuarioRepository usuarioRepository) {
-		super();
-		this.alunoRepository = alunoRepository;
-		this.usuarioRepository = usuarioRepository;
+	/**
+	 * @return the chargeService
+	 */
+	public ChargeService getChargeService() {
+		return chargeService;
 	}
 
-	public ChargeManager(PersonalRepository personalRepository, UsuarioRepository usuarioRepository) {
-		super();
-		this.personalRepository = personalRepository;
-		this.usuarioRepository = usuarioRepository;
-	}
-
-	public abstract DatabaseInformation obterCarga(DatabaseEntity entity, DatabaseInformation databaseInformation);
 }
