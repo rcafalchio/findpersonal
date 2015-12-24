@@ -33,8 +33,6 @@ public class AlunoRestService {
 
 	@Autowired
 	private GerenciadorAlunoBusiness gerenciadorAlunoBusiness;
-
-	//TESTE COMMIT
 	
 	@RequestMapping(value = "/{codigo}", method = RequestMethod.POST)
 	public RetornoJSON buscarAlunoPorCodigo(@PathVariable Integer codigo) {

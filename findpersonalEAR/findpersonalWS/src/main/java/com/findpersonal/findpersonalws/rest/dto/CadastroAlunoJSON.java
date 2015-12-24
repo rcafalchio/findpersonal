@@ -20,9 +20,9 @@ public class CadastroAlunoJSON extends EnvioJSON {
 
 	@JsonProperty("CPF")
 	private Long cpf;
-	
+
 	@JsonProperty("CFB")
-	private CadastroFacebookJSON cadastroFacebookRest;
+	private CadastroFacebookJSON cadastroFacebookJson;
 
 	/**
 	 * @return the senha
@@ -84,18 +84,11 @@ public class CadastroAlunoJSON extends EnvioJSON {
 		this.cpf = cpf;
 	}
 
-	/**
-	 * @return the cadastroFacebookRest
-	 */
-	public CadastroFacebookJSON getCadastroFacebookRest() {
-		return cadastroFacebookRest;
+	public CadastroFacebookJSON getCadastroFacebookJson() {
+		return cadastroFacebookJson;
 	}
 
-	/**
-	 * @param cadastroFacebookRest the cadastroFacebookRest to set
-	 */
-	public void setCadastroFacebookRest(CadastroFacebookJSON cadastroFacebookRest) {
-		this.cadastroFacebookRest = cadastroFacebookRest;
+	public void setCadastroFacebookJson(CadastroFacebookJSON cadastroFacebookJson) {
+		this.cadastroFacebookJson = cadastroFacebookJson;
 	}
-
 }

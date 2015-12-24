@@ -68,9 +68,9 @@ public final class ConverterUtils {
 			aluno.getUsuario().setEmail(cadastroAlunoRest.getEmail());
 			aluno.getUsuario().setSenha(cadastroAlunoRest.getSenha());
 			aluno.setCpf(cadastroAlunoRest.getCpf());
-			if (cadastroAlunoRest.getCadastroFacebookRest() != null) {
+			if (cadastroAlunoRest.getCadastroFacebookJson() != null) {
 				aluno.getUsuario().setLoginFacebook(Boolean.TRUE);
-				aluno.getUsuario().setFacebook(convertToFacebook(cadastroAlunoRest.getCadastroFacebookRest()));
+				aluno.getUsuario().setFacebook(convertToFacebook(cadastroAlunoRest.getCadastroFacebookJson()));
 				aluno.getUsuario().getFacebook().setUsuario(aluno.getUsuario());
 			} else {
 				aluno.getUsuario().setLoginFacebook(Boolean.FALSE);
