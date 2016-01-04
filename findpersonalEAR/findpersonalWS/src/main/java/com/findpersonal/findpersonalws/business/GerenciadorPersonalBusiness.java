@@ -145,13 +145,11 @@ public class GerenciadorPersonalBusiness {
 		// Realiza a carga das informações do serviço de Aluno;
 		final ChargeManager chargeManager = ChargeManagerFactory.getInstance()
 				.obterChargeManager(filtroPersonalJSON.getApplicationVersion(), RestServicesEnum.BUSCAR_PERSONAL);
-
-		final ChargeInputData chargeInputData = new InputDataPersonal(filtroPersonalJSON);
-		final DatabaseInformation databaseInformation = chargeManager.obterCarga(chargeInputData);
+		final DatabaseInformation databaseInformation = chargeManager.obterCarga(new InputDataPersonal(filtroPersonalJSON));
 		// Realiza as validações dos dados
-		// final RulesManager rulesManager = RulesManagerFactory.getInstance()
-		// .obterRulesManager(cadastroPersonalRest.getApplicationVersion(), RestServicesEnum.BUSCAR_PERSONAL);
-		// rulesManager.executarRegras(databaseInformation, personal);
+		final RulesManager rulesManager = RulesManagerFactory.getInstance()
+				.obterRulesManager(filtroPersonalJSON.getApplicationVersion(), RestServicesEnum.BUSCAR_PERSONAL);
+//		 rulesManager.executarRegras(databaseInformation, personal);
 		return null;
 	}
 }

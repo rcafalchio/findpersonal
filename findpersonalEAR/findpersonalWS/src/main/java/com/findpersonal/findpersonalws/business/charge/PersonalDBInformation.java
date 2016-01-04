@@ -1,5 +1,8 @@
 package com.findpersonal.findpersonalws.business.charge;
 
+import java.util.List;
+
+import com.findpersonal.findpersonaljpa.entity.Personal;
 import com.findpersonal.findpersonaljpa.entity.Usuario;
 
 /**
@@ -12,10 +15,12 @@ public class PersonalDBInformation implements DatabaseInformation {
 
 	private Usuario usuarioEmail = null;
 	private Boolean personalExistente;
+	private List<Personal> personaisPorFaixa;
 
 	public PersonalDBInformation(PersonalDBBuilder personalDBBuilder) {
 		this.usuarioEmail = personalDBBuilder.usuarioEmail;
 		this.personalExistente = personalDBBuilder.personalExistente;
+		this.personaisPorFaixa = personalDBBuilder.personaisPorFaixa;
 	}
 
 	/**
@@ -27,6 +32,7 @@ public class PersonalDBInformation implements DatabaseInformation {
 	public static class PersonalDBBuilder {
 		private Usuario usuarioEmail;
 		private Boolean personalExistente;
+		private List<Personal> personaisPorFaixa;
 
 		public PersonalDBBuilder() {
 		}
@@ -38,6 +44,11 @@ public class PersonalDBInformation implements DatabaseInformation {
 
 		public PersonalDBBuilder personalExistente(Boolean personalExistente) {
 			this.personalExistente = personalExistente;
+			return this;
+		}
+		
+		public PersonalDBBuilder personaisPorFaixa(List<Personal> personaisPorFaixa) {
+			this.personaisPorFaixa = personaisPorFaixa;
 			return this;
 		}
 
@@ -59,6 +70,10 @@ public class PersonalDBInformation implements DatabaseInformation {
 	 */
 	public Usuario getUsuarioEmail() {
 		return usuarioEmail;
+	}
+
+	public List<Personal> getPersonaisPorFaixa() {
+		return personaisPorFaixa;
 	}
 
 }

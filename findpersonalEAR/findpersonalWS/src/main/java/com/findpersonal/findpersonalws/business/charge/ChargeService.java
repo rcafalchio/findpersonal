@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.findpersonal.findpersonaljpa.repository.AlunoRepository;
+import com.findpersonal.findpersonaljpa.repository.FaixaAulaPersonalRepository;
 import com.findpersonal.findpersonaljpa.repository.PersonalRepository;
 import com.findpersonal.findpersonaljpa.repository.UsuarioRepository;
 
@@ -24,6 +25,13 @@ public class ChargeService {
 
 	@Autowired
 	PersonalRepository personalRepository;
+
+	@Autowired
+	FaixaAulaPersonalRepository faixaAulaPersonalRepository;
+
+	public void setFaixaAulaPersonalRepository(FaixaAulaPersonalRepository faixaAulaPersonalRepository) {
+		this.faixaAulaPersonalRepository = faixaAulaPersonalRepository;
+	}
 
 	/**
 	 * @param usuarioRepository

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -20,6 +21,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the tb_personal database table.
@@ -49,6 +52,11 @@ public class Personal implements Serializable, DatabaseEntity {
 	@OneToMany(mappedBy = "personal", fetch = FetchType.LAZY)
 	private List<LocalAtendimento> locaisAtendimento;
 
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "tb_personal_CD_PERSONAL", insertable = false, updatable = false)
+	private FaixaAulaPersonal faixaAulaPersonal;
+	
 	@Column(name = "SG_SEXO")
 	private String siglaSexo;
 
@@ -228,6 +236,14 @@ public class Personal implements Serializable, DatabaseEntity {
 	 */
 	public String getCref() {
 		return cref;
+	}
+
+	public FaixaAulaPersonal getFaixaAulaPersonal() {
+		return faixaAulaPersonal;
+	}
+
+	public void setFaixaAulaPersonal(FaixaAulaPersonal faixaAulaPersonal) {
+		this.faixaAulaPersonal = faixaAulaPersonal;
 	}
 
 	/**
