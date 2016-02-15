@@ -36,7 +36,7 @@ public class AlunoAtualizacaoRestTest extends RestTest {
 		// REALIZA A ATUALIZACAO
 		final EnvioAtualizacaoAlunoJSON atualizacaoAlunoRest = new EnvioAtualizacaoAlunoJSON();
 		atualizacaoAlunoRest.setApplicationVersion(1.00);
-		atualizacaoAlunoRest.setCodigo(1);
+		atualizacaoAlunoRest.setCodigo(super.codigoCadastro);
 		atualizacaoAlunoRest.setNome(NOVO_NOME);
 		atualizacaoAlunoRest.setEmail(NOVO_EMAIL);
 		atualizacaoAlunoRest.setSiglaSexo(NOVO_SEXO);

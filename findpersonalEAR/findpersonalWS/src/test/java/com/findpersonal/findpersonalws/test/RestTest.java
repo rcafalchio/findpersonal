@@ -25,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -43,6 +44,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.findpersonal.findpersonaljpa.repository.UsuarioRepository;
 import com.findpersonal.findpersonalws.rest.dto.CadastroAlunoJSON;
+import com.findpersonal.findpersonalws.rest.dto.RetornoCadastroJSON;
 import com.findpersonal.findpersonalws.rest.service.AlunoRestService;
 import com.findpersonal.findpersonalws.test.config.Application;
 
@@ -53,6 +55,8 @@ import com.findpersonal.findpersonalws.test.config.Application;
 @WebAppConfiguration
 @SpringApplicationConfiguration(classes = Application.class)
 public abstract class RestTest {
+	
+	private static final Logger LOGGER = Logger.getLogger(RestTest.class);
 	
 	@InjectMocks
 	AlunoRestService alunoRestService;
@@ -72,6 +76,8 @@ public abstract class RestTest {
 
 	private static final String TOKEN_USER_NAME = "user_token@gmail.com";
 	private static final String TOKEN_PASSWORD = "123";
+	
+	protected Integer codigoCadastro;
 
 	@Before
 	public void setUp() throws Exception {
@@ -85,9 +91,6 @@ public abstract class RestTest {
 	
 	private void cadastrarAlunoToken() throws Exception {
 		// @formatter:off
-		// mvc.perform(post("/Aluno/Cadastro").requestAttr("MAIL", "teste14@gmail.com").requestAttr("PW", "123")
-		// .requestAttr("NM", "Well").requestAttr("APV", 1.00).accept(MediaType.APPLICATION_JSON))
-		// .andExpect(status().isOk());
 		final CadastroAlunoJSON cadastroAlunoRest = new CadastroAlunoJSON();
 		cadastroAlunoRest.setApplicationVersion(1.00);
 		cadastroAlunoRest.setEmail(TOKEN_USER_NAME);
@@ -97,10 +100,11 @@ public abstract class RestTest {
 		TestUtil.convertObjectToJsonBytes(cadastroAlunoRest);
 		MockHttpServletRequestBuilder builder = post("/aluno/cadastro").contentType(TestUtil.APPLICATION_JSON_UTF8)
 				.content(TestUtil.convertObjectToJsonBytes(cadastroAlunoRest));
-		System.out.println("#########################################################");
-		String retorno = mvc.perform(builder).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-		System.out.println("Cadastrou o código " + retorno);
-		System.out.println("#########################################################");
+		LOGGER.debug("#########################################################");
+		RetornoCadastroJSON retorno = (RetornoCadastroJSON) TestUtil.convertJsonBytesToObject(mvc.perform(builder).andExpect(status().isOk()).andReturn().getResponse().getContentAsByteArray(),RetornoCadastroJSON.class);
+		codigoCadastro = retorno.getCodigoCadastro();
+		LOGGER.debug("Cadastrou o código " + codigoCadastro);
+		LOGGER.debug("#########################################################");
 		// @formatter:on
 	}
 
@@ -124,7 +128,7 @@ public abstract class RestTest {
 
 		// @formatter:on
 		String token = content.substring(17, 53);
-		System.out.println("Funcionou - TOKEN => " + token);
+		LOGGER.debug("Funcionou - TOKEN => " + token);
 		return token;
 	}
 
